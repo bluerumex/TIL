@@ -49,7 +49,7 @@ function getMiddle(s) {
 
 substring, substr 차이
 
-1) substring(startIndex, endIndex); 
+1) substring(startIndex, endIndex);
 시작 인덱스와 종료 인덱스를 설정해서 문자열을 반환한다.
 종료 인덱스가 없으면 시작 인덱스부터 모든 문자열을 반환한다.
 
@@ -59,4 +59,4 @@ substring, substr 차이
 Math 함수
 Math.ceil() : 소수점 올림, 정수 반환
 Math.floor() : 소수점 버림, 정수 반환
-Math.round() : 소수점 반올림, 정수반환  
+Math.round() : 소수점 반올림, 정수반환
