@@ -28,6 +28,15 @@ ___
 ==**이벤트 핸들러**==<br>
 이벤트란 사용자 또는 브라우저가 취하는 특정 동작이다. 이벤트에는 click, load, mouseover같은 이름이 있다. 이벤트에 응답하여 호출되는 함수를 '이벤트 핸들러'(이벤트 리스너)라고 한다.
 이벤트 핸들러의 이름은 "on"으로 시작<br>
-click 이벤트의 이벤트 핸들러는 onClick, load는 onLoad.
+click 이벤트의 이벤트 핸들러는 onClick, load는 onLoad<br>
 
-
+HTML 이벤트 핸들러
+```{.html}
+<input type="button" value="Click Me" onclick="alert('clicked')" />
+```
+onclick에 사용자가 정의한 함수를 연결할 수도 있다.<br>
+`<script>`에 정의해도 되고, 외부 파일에 정의해도 된다.이벤트 핸들러로 실행되는 코드는 전역 스코프에서 실행된다.<br>
+이런 방식으로 할당한 이벤트 핸들러에는 몇 가지 특징이 있다. 먼저 attribute값을 감싸는 함수가 생성되고 이 함수에는 event라는 특별한 로컬변수가 있고 이 변수는 이벤트 객체이다.
+```{.html}
+<input type="button" value="Click Me" onclick="alert('event.type')" />
+```
