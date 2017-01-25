@@ -1,11 +1,11 @@
 #7Kyu
 ##Simple Fun #20: First Reverse Try
-
+```
 Given an array arr, swap its first and last elements and return the resulting array.
 Example
 
 For arr = [1, 2, 3, 4, 5], the output should be [5, 2, 3, 4, 1]
-
+```
 ###Solutions
 ```{.java}
 function firstReverseTry(arr) {

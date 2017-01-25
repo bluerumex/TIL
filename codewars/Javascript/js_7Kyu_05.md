@@ -2,7 +2,7 @@
 ##Sum of the first nth term of Series
 
 Your task is to write a function which returns the sum of following series upto nth term(parameter).
-
+```
 Series: 1 + 1/4 + 1/7 + 1/10 + 1/13 + 1/16 +...
 Rules:
 
@@ -11,9 +11,10 @@ If the given value is 0 then it should return 0.00
 You will only be given Natural Numbers as arguments.
 Examples:
 
-SeriesSum(1) => 1 = "1"
+SeriesSum(1) => 1 = "1"<
 SeriesSum(2) => 1 + 1/4 = "1.25"
 SeriesSum(5) => 1 + 1/4 + 1/7 + 1/10 + 1/13 = "1.57"
+```
 
 ###Solution
 ```{.javascript}
@@ -40,7 +41,7 @@ function seriesSum(n) {
     return s.toFixed(2);
 }
 ```
-
+#####Function summary
 ```{.javascript}
 Number.prototype.toFixed();
 고정 소수점 표기법을 사용하여 숫자를 반환.
