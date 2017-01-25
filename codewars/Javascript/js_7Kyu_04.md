@@ -31,7 +31,7 @@ function firstReverseTry(arr) {
 ```
 <br>
 **slice** - 부분 배열을 반환한다.<br>
-slice(first, last); 전달인자를 2개 받음<br>
+slice(begin, end); 전달인자를 2개 받음, 인자는 선택사항 end 인덱스가 지정되지 않으면 배열의 끝까지 반환<br>
 전달인자가 음수면 우측(마지막 원소)으로 부터 앞쪽으로 전달인자 만큼 위치한 원소를 가리킴<br>
 ```{.javascript}
 var a = [1,2,3,4,5];
