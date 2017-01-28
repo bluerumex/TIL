@@ -6,7 +6,10 @@ Description:
 
 Count the number of Duplicates
 
-Write a function that will return the count of distinct case-insensitive alphabetic characters and numeric digits that occur more than once in the input string. The input string can be assumed to contain only alphanumeric characters, including digits, uppercase and lowercase alphabets.
+Write a function that will return the count of distinct case-insensitive alphabetic characters and numeric digits 
+that occur more than once in the input string. 
+The input string can be assumed to contain only alphanumeric characters, 
+including digits, uppercase and lowercase alphabets.
 
 Example
 
@@ -54,7 +57,12 @@ function duplicateCount(text){
     return totalCount;
 }
 ```
+```{.javascrpit}
+function duplicateCount(text){
+  return (text.toLowerCase().split('').sort().join('').match(/([^])\1+/g) || []).length;
+}
 
+```
 ```
 String.prototype.indexOf()
 
@@ -91,4 +99,57 @@ while (pos !== -1) {
 }
 
 console.log(count); // 로그에 4를 출력.
+```
+```
+Array.prototype.sort()
+배열의 요소를 적절한 위치에 정렬하고 배열을 반환.
+sort는 유니코드 기준으로 오름차순..
+
+Syntax
+arr.sort()
+arr.sort(compareFunction)
+
+Parameters
+
+compareFunction {{optional_inline}}
+정렬 순서를 정의하는 함수를 지정합. 생략하면 배열은 각 요소의 문자열 변환에 따라 각 문자의 유니 코드 코드 포인트 값에 따라 정렬.
+
+compareFunction가 제공되면 배열 요소는 compare 함수의 반환 값에 따라 정렬됩니다. a와 b가 비교되는 두 요소라면,
+
+compareFunction (a, b)가 0보다 작은 경우 a를 b보다 낮은 색인으로 정렬합니다. 즉, a가 먼저
+
+compareFunction (a, b)가 0을 반환하면 a와 b를 서로에 대해 변경하지 않고 모든 다른 요소에 대해 정렬unction (a, b)가 0보다 큰 경우, b를 a보다 낮은 인덱스로 소트.
+
+compareFunction (a, b)는 요소 a와 b의 특정 쌍이 두 개의 인수로 주어질 때 항상 동일한 값을 반환해야한다 일치하지 않는 결과가 반환되면 정렬 순서는 정의되지 않음.
+
+compare함수의 형식
+function compare(a, b) {
+  if (a is less than b by some ordering criterion) {
+    return -1;
+  }
+  if (a is greater than b by the ordering criterion) {
+    return 1;
+  }
+  // a must be equal to b
+  return 0;
+}
+
+문자열 대신 숫자를 비교하기 위해 compare 함수는 a에서 b를 뺄 수 있습니다. 다음 함수는 배열을 오름차순으로 정렬합니다 (Infinity 및 NaN이 포함되어 있지 않은 경우).
+
+function compareNumbers(a, b) {
+  return a - b;
+}
+
+```
+
+
+var scores = [1, 10, 21, 2]; 
+scores.sort(); // [1, 10, 2, 21]
+
+10이 2보다 앞선다.. unicode...기준
+숫자는 문자열로 변환되어서 값이 결정되어짐.
+
+
+
+
 ```
