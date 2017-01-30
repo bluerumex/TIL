@@ -12,7 +12,7 @@ prefixname으로 태그를 선언해야 한다.
 ${ prefixname:functionname()}
 
 표현언어에서 함수를 이용하려면 다음과 같이 3가지 작업을 수행한 뒤, JSP 프로그램에서
-표현언어이 함수를 호출할 수 있다.
+표현언어 함수를 호출할 수 있다.
 
 1. 클래스 작성	   [Java Resource: rc]/[패키지] 
 2. TLD 파일 작성	 [WebContent]/[WEB-INF]/[tld]
@@ -34,8 +34,8 @@ public class ELDatFormat {
 //2. TLD 
 태그 라이브러리 디스크립터(Tag Library Descriptor) 
 태그 라이브러리의 정보를 기술하는 파일로 줄여서 TLD 위에서 작성한 클래스 ELDateFormat의 메소드
-toFormat()을 표현언어로 이용하려면, 클래스 ELDateFormat의 메소드 toFormat을 태그로 이용한다는 정보를 TLD 파일에 저장해야 한다.
-일반적으로 [WEB-INF]하부 폴더 [tld]를 만들어 저장한다.
+toFormat()을 표현언어로 이용하려면, 클래스 ELDateFormat의 메소드 toFormat을 태그로 이용한다는 정보를 
+TLD 파일에 저장해야 한다. 일반적으로 [WEB-INF]하부 폴더 [tld]를 만들어 저장한다.
 
 <function> 태그는 JSP파일에서 함수를 이용할 수 있도록 등록하는 태그로 내부에는 
 <description>, <name>, <function-class>, <function-signature> 태그등이 필요하다.
