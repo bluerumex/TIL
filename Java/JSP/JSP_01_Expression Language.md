@@ -36,10 +36,8 @@ ${param["userId"]}
 
 ${product}
 
-<<<<<<< HEAD
 JSP 엔진은 page, request, sssion, application 범위에서 등록된 product를 평가하여 그 값을 반환한다.
 만약 product를 찾을 수 없다면 null을 반환
 
 물론 변수가 표현언어 내장 객체라면 그 내장 객체의 값을 반환
-
 ```
