@@ -60,5 +60,12 @@ SELECT
 FROM people
 GROUP BY clan
 ORDER BY total_points DESC
-
 ```
+
+######문제풀이에 실패한 이유
+ - 결과 정렬을 단순 Ordr by 로 해결했으나 문제의 정답과 거리가 멀었다. RANK함수를 이용해야됨
+ - NULL 컬럼의 텍스트를 대체 실패
+   COALESCE함수를 사용했으나 제대로 사용 못함
+   COALESCE(clan, '[no clan specified]') 컬럼이 비어있다고 무조건 NULL 이라고만 판단
+   '' 공백으로 된 컬럼일 수도 있음.
+
