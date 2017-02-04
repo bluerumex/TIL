@@ -56,7 +56,6 @@ SELECT job,
   
 하나의 SQL 문장에 ORDER BY SAL DESC 조건과 PARTITION BY JOB 조건이 충돌이 났기 때문에
 JOB별로는 정렬되지 않고 ORDER BY SAL DESC조건으로 정렬 되었다.
-```language
 ```
 <img src="../img/oracle_01.png" />
 
@@ -77,7 +76,8 @@ SELECT job,
 
 ```language
 다. ROW_NUMBER 함수
-ROW_NUMBER 함수는 RANK나 DENSE_RANK 함수가 동일한 값에 대해서는 동일한 순위를 부여하는데 반해, 동일한 값이라도 고유한 순위를 부여한다.
+ROW_NUMBER 함수는 RANK나 DENSE_RANK 함수가 동일한 값에 대해서는 동일한 순위를 부여하는데 반해, 
+동일한 값이라도 고유한 순위를 부여한다.
 
 SELECT job,
        ename,
