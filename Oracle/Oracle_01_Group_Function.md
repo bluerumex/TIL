@@ -1,15 +1,16 @@
 ### Oracle 1. Group Function
 
 ##### 데이터 분석을 이한 세 가지 함수를 정의
-- AGGREGATE FUNCTION 
+- AGGREGATE FUNCTION <br>
   COUNT, SUM, AVG, MAX MIN등의 집계 함수
-- GROUP FUNCITON - ROLLUP, CUBE
+- GROUP FUNCITON <br>
+  ROLLUP, CUBE
   결산 업무를 가지는 원가나 판매 시스템의 경우 소, 중, 합계 등
   여러 레벨의 결산 보고서를 만들 때 유용
   소그룹 간의 소계를 계산하는 ROLLUP함수 GROUP BY 항목간 다 차원적 소계를 계산할 수 있는 CUBE 함수
   특정 항목에 대한 소계를 계산하는 GROUPING SETS 함수가 있다.
   
-- WINDOW FUNCTION
+- WINDOW FUNCTION <br>
   컬럼과 컬럼간의 연산, 비교, 연결이나 집합에 대한 집계는 쉬운 반면 행과 행간의 관계를 정의 하거나, 
   비교, 연산하는 것은 어려운 문제였음.INLINE VIEW를 이용해 복잡한 SQL문을 작성해야 하던 것을
   부분적이나마 행과 행간의 관계를 쉽게 정의하기 위해 만든 함수이다.
@@ -41,7 +42,7 @@ FROM 테이블 명;
 ```
 
 ######1. 그룹내 순위 함수
-```language
+```{.sql}
 가. RANK 함수
 RANK함수는 ORDER BY를 포함한 Query 문에서 특정 항목(컬럼)에 대한 순위를 구하는 함수
 이때 특정 범위(PARTITION) 내에서 순위를 구할 수도 있고 전체 데이터에 대한 순위를 구할 수도 있다.
@@ -60,7 +61,7 @@ JOB별로는 정렬되지 않고 ORDER BY SAL DESC조건으로 정렬 되었다.
 <img src="../img/oracle_01.png" />
 
 ---
-```language
+```{.sql}
 나. DESNSE RANK 함수
 DENSE_RANK 함수는 RANK 함수와 흡사하나, 동일한 순위를 하나의 건수로 취급하는 것이 틀림
 
@@ -74,7 +75,7 @@ SELECT job,
 <img src="../img/oracle_02.png" />
 ---
 
-```language
+```{.sql}
 다. ROW_NUMBER 함수
 ROW_NUMBER 함수는 RANK나 DENSE_RANK 함수가 동일한 값에 대해서는 동일한 순위를 부여하는데 반해, 
 동일한 값이라도 고유한 순위를 부여한다.
