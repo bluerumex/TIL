@@ -63,9 +63,10 @@ function duplicateCount(text){
 }
 
 ```
-```
-String.prototype.indexOf()
+<br>
+#####String.prototype.indexOf()
 
+```
 호출한 String객체에서 입력한 파라메터와 일치하는 Index를 반환한다. 일치하는 값이 없으면 -1 return
 
 Syntax
