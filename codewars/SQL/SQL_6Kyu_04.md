@@ -4,13 +4,15 @@
 ```
 Description:
 
-For this challenge you need to create a SELECT statement, this select statement must have NULL handling, using COALESCE and NULLIF.
+For this challenge you need to create a SELECT statement, this select statement must have NULL handling, 
+using COALESCE and NULLIF.
 
 If no name is specified you must replace with [product name not found]
 
 If no card_name is specified you must replace with [card name not found]
 
-If no price is specified you must throw away the record, you must also filter the dataset by prices greater than 50.
+If no price is specified you must throw away the record, 
+you must also filter the dataset by prices greater than 50.
 
 eusales table schema
 
