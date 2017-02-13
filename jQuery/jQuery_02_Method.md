@@ -34,5 +34,42 @@ jQuery 개체는 jQuery 메서드만 실행할 수 있다. 선택된 집합에 �
 $.get(index)를 사용해 단일 요소의 DOM 개체를 가져올 수 있긴하지만,
 관례적으로 $('div')[1] 과 같이 [] 표기법을 사용
 
+<ol>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+    <li>7</li>
+    <li>8</li>
+    <li>9</li>
+    <li>10</li>
+</ol>
+
+var lis = $('ol li').get().reverse(); //reverse() 자바스크립트 메서드 역순정렬
+$('ol').empty();
+$.each(lis, function(i) {
+    $('ol').append("<li>" + lis[i].innerHTML + "</li>");
+});
+
+
+4. 선택집합에서 항목의 인덱스 얻기
+
+$('div').click(function() {
+	alert($('div').index(this));
+})
+
+
+5. 기존 배열로부터 고유한 배열 만들기
+
+var arr = $.map($('li'), function(item, index) {
+	while (index < 3) {
+    	reutnr $(item).html();
+    }
+    return null;
+});
+$(document.body).append("'"<span>The first three 
+						authors are : " + arr.join(', ') + "</span>");
 
 ```
