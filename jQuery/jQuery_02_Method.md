@@ -68,8 +68,47 @@ var arr = $.map($('li'), function(item, index) {
     	reutnr $(item).html();
     }
     return null;
-});
+.
 $(document.body).append("'"<span>The first three 
 						authors are : " + arr.join(', ') + "</span>");
 
+
+6. 선택된 집합의 일부에 대해 동작 수행하기
+
+$('p').slice(1, 3).wrap("<i></i>");
+//인덴스가 1부터 3 이전까지 부분집합을 선택한 후 그 집합들을 이탤릭 태그로 감싼다.
+
+
+7. jQuery가 다른 라이브러리와 충돌하지 않도록 설정
+
+1) jQuery.noConflict(); 메서드
+
+jQuery.noConflict();
+jQuery(document).ready(function() {
+	jQuery("div#jQuery").css("font-weight", "bold");
+});
+
+jQuery.noConflict()를 호출하는 경우 $변ㅅ를 가장 먼저 구현하고 있는 라이브러리에게 그에
+대한 제어권을 양보한다.
+
+2) 지정하고 싶은 짧은 이름을 변수로 정의
+
+var j = jQuery.noConflict();
+
+j(document).ready(function() {
+	j("div#jQuery").css("fot-weight", "bold");
+});
+
+
+3) jQuery 코드를 클로저 내부로 캡슐화 하는 방법
+
+(function($) {
+	$('div#jQuery').css("font-weight", "bold");
+})(jQuery);
+
+클로저를 사용하면 함수 내부에서 실행되는 동안에만 jQuery 개체에 사용할 수 있는 $변수를
+임시로 만들 수 있다. 함수가 종료되면 $변수는 애초에 제어권을 갖고 있는 라이브러리의 것으로 
+인식.
+
+* 캡슐화된 함수 안에서 $를 요구하는 다른 라이브러리의 메서드는 사용할 수 없다.
 ```
