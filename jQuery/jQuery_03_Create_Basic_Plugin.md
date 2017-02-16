@@ -4,7 +4,7 @@
 본 문서는 http://learn.jquery.com/plugins/basic-plugin-creation/
 ```
 
-#####  How jQuery Works 101 : jQuery Object Methods
+####  How jQuery Works 101 : jQuery Object Methods
 ```{.javascript}
 jQuery의 작동
 $('a').css("color", "red");
@@ -13,7 +13,7 @@ $함수는 요소를 선택할 때 사용하고 jQuery 객체를 반환한다.
 또한 객체는 .css(), .click()과 같은 메서드들을 포함.
 jQuery 객체는 $.fn 객체로 부터 이런 메소드들을 받는다.
 ```
-##### Basic Plugin Authoring
+#### Basic Plugin Authoring
 ```{.javascript}
 텍스트를 초록색으로 바꾸는 plugin을 만든다고 가정 
 greenity를 $.fn로 호출하는 함수를 추가합니다. 
@@ -30,7 +30,7 @@ greenity 함수는 .css()와 같은 객체이기 때문?
 
 차이점이 정확히 이해되지 않는다 상기 코드에 $(this)를 써도 코드는 이상없이 작동한다...
 ```
-##### Chaining
+#### Chaining
 ```{.javascript}
 잘 실행이 되나 더 다른 작업을 해줘야 할 필요가 있다.
 jQuery이 특징인 chaining이 가능하게 작업해 보자.
@@ -47,7 +47,7 @@ $.fn.greenity = function() {
 
 $('a').greenify().addClass('greenified');
 ```
-##### Protecting the $ Alias and Adding Scope
+#### Protecting the $ Alias and Adding Scope
 ```{.javascript}
 $ 변수는 Javascript 라이브러리에서 광범위하게 사용되고 있다.
 jQuery와 다른 라이브러리와 함께 사용한다면 jQuery에서 $를 사용하지 못하도록
@@ -77,7 +77,7 @@ jQuery.noConflict()를 사용해야 한다.
 };
 }(jQuery));
 ```
-##### Minimizing plugin Footprint
+#### Minimizing plugin Footprint
 ```{.javascript}
 $.fn에서 하나의 슬롯만(bracket을 의미?) 사용하여 플러그인을 만드는 것은 매우 좋은 습관이다.
 플러그인이 오버라이드 될 확률과, 다른 플러그인을 오버라이드 할 확률을 줄여주기 때문.
@@ -107,7 +107,7 @@ $(function ($) {
     };
 }(jQuery));
 ```
-##### Using the each() Method
+#### Using the each() Method
 ```{.javascript}
 jQuery 객체는 보통 DOM 요소의 수에 대한 참조를 포함하고 있다. (컬렉션)
 특정 요소에 어떤 조작을 수행(테이터 속성을 받거나, 특정 위치를 계산하는 작업)을 하려고 한다면
@@ -122,7 +122,7 @@ $.fn.newPlugin = function() {
 this를 반환하는 것 대신 .each()의 결과를 반환하게 된다는 것에 유의.
 each()는 이미 chainable하기 때문에, 우리가 반환할 값 this를 반환한다.
 ```
-##### Accepting Options
+#### Accepting Options
 ```{.javascript}
 플러그인이 더욱 복잡해 진다면, 옵션들을 통해 커스터마이징이 가능하게 만드는 것도 좋은
 아이디어이다. 이런 일을 하기 위한 가장 쉬운 방법은 객체 리터럴을 이용하자
@@ -150,4 +150,35 @@ $('div').greenify({
 });
 
 color의 기본 값은 #556b2f이지만, $.extend()로 오버라이드 되어 orange로 변경됨.
+```
+#### Putting It Together
+```{.javascript}
+(function ($) {
+    $.fn.showLinkLocation = function() {
+        this.filter("a").each(function() {
+            var link = $(this);
+              link.append("(" + link.attr("href") + ")");
+        });
+
+        return this;
+    }
+}(jQuery));
+
+이 간단한 플러그인은 컬렉션의 모든 앵커에 적용되고, href 속성을 괄호에 추가해준다.
+
+위 플러그인을 최적화
+(function ($) {
+	$.fn.showLinkLocation = function() {
+    	this.filter('a').append(function() {
+        	return "("+this.href+")");
+        });
+        
+        return this;
+    }
+}(jQuery));
+
+.append() 메서드를 이용해 콜백을 허용하고, 콜백의 반환값은 컬렉션의 각 요소에 추가된다.
+기본 DOM API가 href 속성으로 쉽게 접근 할 수 있도록 되어 있기 때문에 
+.attr() 메서드로 href속성을 검색하는 방법을 사용하지 않았다.
+
 ```
