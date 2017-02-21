@@ -49,6 +49,24 @@ $('#two').on({
         alert('keyup');
     }
 })
+```
+#### jQuery는 이벤트를 어떻게 처리하는가?
+참고자료 : Naver D2 
+```{.javascript}
 
 
+*jQuery의 다양한 이벤트 처리방법
+일반적으로 이벤트 하나에 이벤트 핸들러 하나를 등록해 이벤트를 처리한다.
+그러나 jQuery에서는 같은 이벤트를 여러번 처리하거나 같은 이벤트 핸들러를 여러 이벤트에 등록해
+이벤트를 처리할 수 있다.
+
+*네임스페이스 사용
+같은 이벤트를 여러번 처리해야 할 때 jQuery에서는 이벤트를 네임스페이스로 구분할 수 있다.
+'이벤트이름 + 마침표 + 네임스페이스' 형식으로 이벤트 이름 뒤에 네임스페이스를 덧 붙인다.
+
+ex)
+$(element).on('click.myPlugin', funciton() { ... });
+$(element).on('click.myPlugin.myPlugin2', funciton() { ... }); 
+
+$(element).off('click.myPlugin'); //상기 두개의 이벤트가 모두다 해제된다.
 ```
