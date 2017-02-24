@@ -18,12 +18,10 @@ if (a > 0 && b < 0) {
 
 Example 1:  || 연산을 이용한 팁
 
-function foo(title) {
-	if (!title) {
-    	title = "TEST";
-    } else {
-    	title = title;
-    }
+function documentTitle(theTitle) {
+    if (!theTitle) {
+    	theTitle  = "Untitled Document";
+	}
 }
 
 parameter로 넘어온 title 값을 체크(undefined 포함) !title일 경우 그 값을 title 전역 변수에
@@ -31,9 +29,10 @@ parameter로 넘어온 title 값을 체크(undefined 포함) !title일 경우 �
 
 상기 코드를 단순화
 
-function foo(title) {
-	title = title || "TEST";
+function documentTitle(theTitle)
+	theTitle  = theTitle || "Untitled Document";
 }
+
 앞의 논리 연산을 먼저 실행 parameter가 유효하면 전역변수 title에 해당 값을 할당한다.
 
 
