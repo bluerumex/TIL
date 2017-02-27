@@ -1,4 +1,4 @@
-### JavaScript 00. 언어의 기초
+### JavaScript 00. 단축연산
 
 #### Boolean 연산자
 ```{.javascript}
