@@ -1,6 +1,6 @@
 ### JavaScript 기본_함수와 프로토타입 체이팅
 
-#### 함수
+#### 함수 선언
 ```{.javascript}
 자바스크립트의 함수는 모듈화 처리나 클로저, 객체 생성 등 자바스크립트의 근간이 되는 많은 기능을 제공하고 있다
 
@@ -21,7 +21,7 @@ var add = function(x, y) { // 익명 함수 표현식
 	return x + y;
 }
 
-=> 내부적으로 
+> 내부적으로 
 var add = function add(x, y) {...} 자바스크립트 엔진에 의해 add 기명이 내부적으로 붙음
 
 var plus = add;	// 함수 변수라고 한다. 함수 add는 함수의 참조값을 가지므로 또 다른 변수에 할당 가능
@@ -45,6 +45,27 @@ var factorialVar = function factorial(n) {
     return n * factorial(n-1);
 };
 
+//Function() 생성자 함수를 통한 함수 생성
+new Function (arg1, arg2, ... argN, functionBOdy)
 
+var add = new Function('x', 'y', 'return x + y');
+```
+#### 함수 객체
+```{.javascript}
+함수도 객체다. 
+함수의 기본 기능인 코드 실행뿐만 아니라, 함수자체가 일반 객체처럼 프로퍼티들을 가질 수 있다.
 
+function add(x, y) {
+	return x + y;
+}
+
+add.result = add(3, 2);
+add.status = 'OK';
+
+함수도 객체처럼 취급 되기 때문에 다음과 같은 동작이 가능하다.
+* 리터럴에 의해 생성
+* 변수나 배열의 요소, 객체의 프로퍼티 등에 할당 가능
+* 함수의 인자로 전달
+* 함수의 리턴값으로 리턴가능
+* 동적으로 프로퍼티를 생성 및 할당 가능
 ```
