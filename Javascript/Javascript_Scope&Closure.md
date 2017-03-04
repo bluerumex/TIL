@@ -14,16 +14,28 @@
     }
 </script>
 
-console.log(typeof total !== 'undefined'); // true
-console.log(typeof last !== 'undefined'); // true
-console.log(typeof i !== 'undefined'); // true
+console.log(typeof total !== 'undefined');	// true
+console.log(typeof last !== 'undefined');	// true
+console.log(typeof i !== 'undefined');	// true
 total === 21, last === 6
-total, last, i 값에 접근가능함 // global..
+total, last, i 값에 접근가능함	// global..
 
 블록 스코프를 생성하는 구문
 * function
-* with
+* with (ECMAScript 6 deprecate)
 * catch
+```
+### Closure
+```{.javascript}
+    function outer() {
+        var count = 0;
+        var inner = function() {
+            return ++count;
+        };
+        return inner;
+    }
 
-
+    var increase = outer();
+	increase();	//count 1
+    increase();	//count 2
 ```
