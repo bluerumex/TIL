@@ -1,4 +1,4 @@
-### JavaScript 기본_함수와 프로토타입 체이팅
+### JavaScript 기본_함수와 프로토타입 체이닝
 
 #### 함수 선언
 ```{.javascript}
