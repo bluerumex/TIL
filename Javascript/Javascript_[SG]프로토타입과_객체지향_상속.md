@@ -101,4 +101,60 @@ suv.go();	//SUV_WANK
 프로토타입은 모든 객체가 한 객체를 공유하고 있어 메모리를 하나만 사용 따라서 여러개를 생성할 경우
 프로토타입을 사용하는 방법이 메모리상 유리하다.
 
+프로토타입 체인을 따라서 검색하는 속성 탐색 시간이 늘어난다.
+속성을 탐색할 때, 먼저 해당 객체의 속성인지 탐색하고, 없다면 해당 객체의 constructor.prototype을
+탐색하고, 없다면 다시 해당 객체의 프로토타입을 탐색하는 식으로 연쇄적인 속성 탐색이 자바스크립트 엔진에
+따라서는 다소 소모적일 수 있기 때문
+```
+#### 상속
+```{.javascript}
+
+* 초창기 자바스크립트 상속 구현 방법
+function Person() {
+    this.name = "anonymous";
+    this.job = "none";
+    this.sayHello = function() {
+        console.log("Hello, my name is " + this.name);
+    };
+}
+
+function Unikys() {
+    var obj = new Person(); // Person을 생성해서 반환함
+    obj.name = "unikys";
+    obj.job = "Programmer";
+    return obj;
+}
+
+var unikys = new Unikys();
+unikys.sayHello();	// "Hello my name is uikys"
+
+unikys instanceof Person	// true
+unikys instanceof Unikys	// false (new Unikys로 생성했지만) Unikys의 인스턴스로 인식을
+못한다.
+
+* function에 기본으로 들어있는 프로토타입 속성을 새로운 객체로 설정하여 상속하는 방법
+앞에서 설명한 프로토타입을 새로운 객체를 선언하듯이, 상속하고자 하는 객체를 하위 객체의 프로토타입
+속성으로 설정
+
+var person = {
+    name: "anonymous",
+    sayHello: function() {
+        console.log("Hello, my name is " + this.name);
+    }
+};	//person 변수를 객체 표현식으로 정의해 객체로 생성
+
+function Unikys() {
+    this.name = "Unikys";
+}
+
+Unikys.prototype = person;
+var unikys = new Unikys();
+
+unikys.sayHello();  // "Hello, my name is Unikys"
+person.sayHello();  // "Hello, my name is anomymous"
+unikys instanceof Unikys;   // true
+
+instanceof Unikys는 정상으로 true가 나오지만, unikys 변수가 person 변수를 상속했다는 것을
+unikys instanceof person과 같은 코드로 확인 할 수 가 없다.
+
 ```
