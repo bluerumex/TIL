@@ -61,5 +61,49 @@ var myLibrary = (function(window) {
 이벤트 전달은 propaation path라는 전파 경로를 따라서 수행된다.
 이벤트가 전달되는 단계는 크게 세 단계로 이루어지는데 
 이벤트 캡처링이 일어나고, 그다음 이벤트 대상에 해당하는 이벤트 핸들러가 호출된 다음, 이벤트 버블링으로 이어진다.
+```
+#### 프락시 패턴
+```{.javascript}
+프락시 패턴은 말 그대로 하나의 객체가 프락시 역할을 수행하여 상황에 따라 다른 객체에 접근하게 해주거나
+다른 함수를 호출하게 해주는 패턴이다.
 
+프락시는 클라이언트와 서버 사이에서 중간자 역할을 한다.
+프락시의 역할 중 대표적인 것은 클라이언트가 서버에 직접 접근하지 못하도록, 한 단계 가상화 또는
+캡슐화하는 기능이다.
+
+또한, 클라이언트가 request를 프락시에 한 번만 전달하면, 프락시는 서버로 여러번의 복잡한 real request를 보낸다.
+응답 또한 마찬가지로 서버가 여러 개의 real response를 보내면 프락시에 취합하여 하나의 response로 
+보내는 기능을 수행한다. 부가적으로 웹에서의 프락시는 캐시 기능을 수행하기도 한다.
+
+패턴 예제)
+
+proxyClickEventHandler = {
+    "play": function() {
+        videoBunny.play();
+    },
+    "pause": function () {
+        videoBunny.pause();
+    },
+    "volumeUp": function () {
+        if (videoBunny.volume <= 0.9) {
+            videoBunny.volume += 0.1;
+        } else {
+            videoBunny.volume = 1;
+        }
+    },
+    "volumeDown": function () {
+        if (videoBunny.volume >= 0.1) {
+            videoBunny.volume -= 0.1;
+        } else {
+            videoBunny.volume = 0;
+        }
+    }
+};
+
+divControlPanel.addEventListener("click", function (e) {
+   var target = e.target || e.srcElement; //e.srcElemnet IE8 Under
+    if (proxyClickEventHandler.hasOwnProperty(target.id)) {
+        proxyClickEventHandler[target.id].call();
+    }
+}, true);
 ```
