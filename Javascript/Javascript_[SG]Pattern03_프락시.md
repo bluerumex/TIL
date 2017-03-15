@@ -45,6 +45,7 @@ divControlPanel.addEventListener("click", function (e) {
     }
 }, true);
 
+* 캐쉬기능
 또한 캐쉬 기능을 프락시 패턴과 조합해서 사용하면 XMLHttpRequest를 보낼 때도 주기적으로 변경되지
 않는 동일한 응답이 필요할 때 서버와의 통신을 최소화 할 수 있다.
 
@@ -117,5 +118,68 @@ divControlPanel.addEventListener("click", function (e) {
         }, true);
     }());
 </script>
+</body>
+
+* XMLHttpRequst를 여러번 요청할 때
+웹 채팅을 한다고 가정했을 때 사용자가 빠르게 여러번 채팅을 입력할 경우 매번 서버에 채팅 내용을
+전달하고 응답을 받아서 처리하는 것은 클라이언트에도 부담이 되지만 다수의 사용자가 접속한 상황에서는
+엄청난 트래픽을 감당해야되는 문제가 발생, 또한 통신이 비동기로 이뤄지므로 요청에 대한 응답이 역전되는
+상황이 발생할 수 도 있다.
+
+따라서 요청들을 묶어 한번에 전달하고 이전의 요청에 대한 응답이 오기 전까지는 여러 개의 요청을
+기록해 두었다가 한꺼번에 요청
+
+<body>
+    <div id="chatLog"></div>
+    <form id="formChat">
+        <input type="text" id="inputChat" />
+        <input type="submit" value="send" />
+    </form>
+    <script>
+        (function () {
+            var divChatLog = document.getElementById("chatLog"),
+                formChat = document.getElementById("formChat"),
+                inputChat = document.getElementById("inputChat"),
+                isPending = false;
+                requestChat = [];
+
+            formChat.addEventListener("submit", function() {
+               proxySendChat(inputChat.value);
+               inputChat.value = "";
+
+               event.returnValue = false;
+               return false;
+            });
+
+            function proxySendChat(chat) {
+                if (isPending === true) {
+                    requestChat.push(chat);
+                } else {
+                    sendChatRequest([chat]);
+                }
+            }
+
+            function sendChatRequest(chats) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "./send_chat.php", true);
+                xhr.setRequestHeader("Content-type", "application/x-www-urlencoded");
+
+                isPending = true;
+
+                xhr.onload = function() {
+                    var pChat = document.createElement("p");
+                    pChat.innerHTML = xhr.responseText;
+                    divChatLog.appendChild(pChat);
+                    if (requestChat.length > 0) {
+                        sendChatRequest(requestChat);
+                        reqeustChat = [];
+                    } else {
+                        isPending = false;
+                    }
+                };
+                xhr.send("chat=" + encodeURIComponent(JSON.stringify(chats)));
+            }
+        }());
+    </script>
 </body>
 ```
