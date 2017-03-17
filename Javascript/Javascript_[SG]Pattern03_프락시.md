@@ -152,7 +152,7 @@ divControlPanel.addEventListener("click", function (e) {
             });
 
             function proxySendChat(chat) {
-                if (isPending === true) {
+                if (isPending === true) { // 요청중일 경우 배열에 채팅내용을 쌓아둔다
                     requestChat.push(chat);
                 } else {
                     sendChatRequest([chat]);
@@ -182,4 +182,37 @@ divControlPanel.addEventListener("click", function (e) {
         }());
     </script>
 </body>
+
+* 프락시를 활용한 래퍼 기능 구현
+기존에 있는 함수를 다른 함수로 감싸는 Wrapper 형식의 기능
+다른 라이브러리나 모듈의 함수를 사용하기 전에 전처리를 편하게 할 수 있다
+
+<body>
+    <script>
+        (function () {
+           function wrap(func, wrapper) {
+               return function() {
+                   var args = [func].concat(Array.prototype.slice.call(arguments));
+                   return wrapper.apply(this, args);
+               };
+           }
+
+            function existingFunction() {
+                console.log("Existing function is called with arguments");
+                console.log(arguments);
+            }
+            // wrapper
+            var wrappedFunction = wrap(existingFunction, function (func) {
+                console.log("Wrapper function is called with arguments");
+                console.log(arguments);
+                func.apply(this, Array.prototype.slice.call(arguments, 1));
+            })
+            // 일반 호출
+            console.log("1. Calling existing function");
+            existingFunction("First argument", "Second argument", "Third argument");
+
+            console.log("\n2. Calling wrapped function");
+            existingFunction("First argument", "Second argument", "Third argument");
+        }());
+    </script>
 ```
