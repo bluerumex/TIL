@@ -91,4 +91,8 @@
         }());
     </script>
 </body>
+
+Validator라는 클래스를 정의하여 prototype에 decorate()함수와 ruleset 변수를 추가해서 검증에
+사용할 규칙을 곤리하고 추가할 수 있게 하고, 검증 규칙의 종류는 decorate() 함수를 통해 추가할 수 있다.
+
 ```
