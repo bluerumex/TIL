@@ -6,9 +6,12 @@
 
 <body>
     <form id="personalInformation">
-        <lable>First name:</lable><input type="text" class="validate" data-validate-rules="required alphabet" name="firstName"><br/>
-        <lable>Last name:</lable><input type="text" class="validate" data-validate-rules="required alphabet" name="lastName"><br/>
-        <lable>Age:</lable><input type="text" class="validate" data-validate-rules="number" name="age"><br/>
+        <lable>First name:</lable>
+        <input type="text" class="validate" data-validate-rules="required alphabet" name="firstName"><br/>
+        <lable>Last name:</lable>
+        <input type="text" class="validate" data-validate-rules="required alphabet" name="lastName"><br/>
+        <lable>Age:</lable>
+        <input type="text" class="validate" data-validate-rules="number" name="age"><br/>
         <lable>Gender:
             <select class="validate" data-validate-rules="required">
                 <option>Male</option>
