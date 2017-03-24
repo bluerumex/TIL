@@ -11,7 +11,7 @@ fun.apply(thisArg, [argsArray])
 
 Parameter
 thisArg
-호출될 함수에게 지정될 this의 값. 호출된 함수 내에서 this가 전달된 thisArg인자와 다를 수 있으므로 주의
+호출될 함수에게 지정될 this의 값. 호출된 함수 내에서 this가 전달된 thisArg인자와 다를 수 있으므로 주의(this가 null이면 전역객체로 대체된다.)
 만약 함수가 non-strict mode에서 실행 중이면, null과 undefined는 전역 객체로 대체되고 기본값은 래퍼객체로 대체된다
 
 argsArray

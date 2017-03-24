@@ -131,10 +131,32 @@ arr.slice(0, 1);	// ["a"];
 arr.slice(1, 4);	// ["b", "c", "d"];
 
 end 인덱스는 제외하고 추출한다.
+```
+#### Araay.prototype.map()
+```{.javascript}
+map() 메소드는 배열 내의 모든 요소 각각에 대하여  제공된 함수(callback)를 호출하고, 
+그 결과를 모아서, 기존 배열은 값은 변형되지 않고 새로운 배열을 반환, 단 callback함수로 인해
+변형되 수 도 있음.
+
+문법
+arr.map(callback[, thisArg])
+
+파라미터
+
+callback
+새로운 배열 요소를 생성하는 함수로 다음 세 가지 인수를 가집니다.
+    currentValue
+    	배열의 요소 중, 현재 처리되고 있는 요소
+    index
+    	현재 처리되는 요소의 배열 내 인덱스
+    array
+		map 메소드가 적용되는 본래 배열
+
+thisArg
+선택항목. callback을 실행할 때 this로 사용되는 값. 기본값은 Window 객체.
 
 
 ```
-
 ```{.javascript}
 String.prototype.match()
 일치하는 문자가 있으면 배열로 반환한다.
