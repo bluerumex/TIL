@@ -1,5 +1,67 @@
 ### JavaScript Array Methods
+```{.javascript}
+배열은 자바스크립트의 객체의 특별한 형태
+배열리터럴 ([])를 사용
 
+*특징
+ - 1) 값을 순차적으로 넣을 필요 없이 아무 인덱스 위치에 값을 동적으로 추가 가능
+ - 2) 배열 역시 객체다 하지만 약간의 차이가 있다.
+ - 3) 배열도 객체이므로 프로퍼티를 동적으로 생성할 수 있다.
+ - 4) 유사배열객체
+
+1) 배열의 length 프로퍼티
+length property는 배열의 가장 큰 Idexd에 +1을 더 한 값이다.
+배열의 length가 3인 배열에 임의로 length를 5를 정의 하면 나머지 인덱스에는 undefined가 할당된다.
+(배열의 index 100에 값을 설정했을때 length가 100로 늘어난다 하지만 실제 메모리는 length처럼 할당X)
+반대로 length를 줄이게 되면 실제 값은 삭제된다(삭제된 index에는 undefined가 할당)
+#undefined 실제 메모리가 할당되지는 않음.
+
+2) 배열과 일반객체의 차이
+typeof fooArr	// object (not array), intanceof Array로 타입확인하는 것도 한가지 방법.
+typeof fooOjb	// object
+
+일반 객체의 prototype과 배열의 prototype
+객체 __prototype__ >> Object.prototype
+배열 __prototype__ >> Arraay.prototype >> Object.prototype
+
+length 프로퍼티의 존재 여부 (일반객체에는 length 프로퍼티 X)
+
+3) fooArr.color = "blue", fooArr.name = "arr"
+상기방법으로 동적으로 프로퍼티를 추가할 수 있다.
+#property를 추가했다고 length가 바뀌는건 아니다. 배열의 length는 배열 원소의 가장 큰 인덱스가 변경 했을때만 변경
+
+4) 유사배열객체
+일반 객체에 length 프로퍼티를 가진 객체를 유사배열객체(array-like objects)이라고 한다.
+#유사배열객체의 가장 큰 특징은 객체임에도 자바스크립트의 표준 배열 메서드를 사용하는게 가능하다(ex arguemnts)
+
+var arr = ['bar'];
+var obj = {
+	name: 'foo',
+    length: 1	//length 설정
+}
+
+arr.push('baz')	// ['bar', 'baz']
+obj.push('baz')	// VM685:1 Uncaught TypeError: obj.push is not a function
+
+Array.prototype.push.apply(obj, ['baz']);
+// {'1': 'baz', name: 'foo', length: 2}
+
+
+++
+배열의 프로퍼티 열거시 주의
+일반 객체는 for in 문으로 프로퍼티를 열거를 해도 되지만, 배열의 경우 for in문은 배열내 불 필요한 프로퍼티가
+출력 될 수 있으므로 for문을 사용하는 것이 좋다.
+
+++
+배열 요소 삭제
+배열도 객체이므로 배열 요소나 프로퍼티를 삭제하는데 delete 연산자를 사용할 수 있다.
+
+delete fooArr[2];	// 2번 인덱스의 해당 값을 undefined로 설정해버린다. length값은 변동(X)
+때문에 보통 배열에서 요소를 삭제할 때 splice() 배열 메서드를 사용한다.
+#splice(startIndex, deleteCount, item)	// item 삭제할 위치에 추가할 요소
+
+ 
+```
 ##### String.prototype.indexOf()
 ```{.javascript}
 호출한 String객체에서 입력한 파라메터와 일치하는 Index를 반환한다. 일치하는 값이 없으면 -1 return

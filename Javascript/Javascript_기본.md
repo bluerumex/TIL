@@ -51,20 +51,3 @@ person이 참조로 전달됐다면 person이 가리키는 객체는 자동으�
 그대로 유지. 함수 내부에서 obj를 덮어쓰면 obj는 지역 객체를 가리키는 포인터가 된다. 이 지역객체는
 함수가 실행을 마치는 즉시 파괴된다
 ```
-#### 유사배열객체
-```{.javascript}
-일반 객체에 length 프로퍼티를 가진 객체를 유사배열객체(array-like objects)이라고 한다.
-*유사배열객체의 가장 큰 특징은 객체임에도 자바스크립트의 표준 배열 메서드를 사용하는게 가능하다(ex arguemnts)
-
-var arr = ['bar'];
-var obj = {
-	name: 'foo',
-    length: 1	//length 설정
-}
-
-arr.push('baz')	// ['bar', 'baz']
-obj.push('baz')	// VM685:1 Uncaught TypeError: obj.push is not a function
-
-Array.prototype.push.apply(obj, ['baz']);
-// {'1': 'baz', name: 'foo', length: 2}
-```
