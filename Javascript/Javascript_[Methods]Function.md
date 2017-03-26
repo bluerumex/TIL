@@ -1,5 +1,19 @@
 ### JavaScript Function Methods
 
+```{.javascript}
+모든 함수는 객체로서 prototype 프로퍼티를 가지고 있다.
+prototype 프로퍼티는 내부 프로퍼티인 __prototype__과 혼동하지 말아야 한다.
+
+함수객체가 가지는 prototype은 이 함수가 생성자로사용될 때 이 함수를 통해 생성된 객체의 부모역할을
+하는 프로토타입 객체를 가리킨다.
+
+자바스크립트에서 함수를 생성할 때, 함수 자신과 연결된 프로토타입 객체를 동시에 생성하며, 이 둘은
+
+함수                       프로토타입객체
+prototype -------------> 
+          <-------------   constructor
+```
+
 #### Function.prototype.apply()
 ```{.javascript}
 Summary
