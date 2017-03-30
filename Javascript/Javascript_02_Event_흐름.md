@@ -41,9 +41,12 @@ onclick에 사용자가 정의한 함수를 연결할 수도 있다.<br>
 <input type="button" value="Click Me" onclick="alert('event.type')" />
 ```
 ```{.javascript}
-defaultPrevented			불리언			true이면 preventDefault()가 호출된 상태
-preventDefault()			요소			이벤트의 기본 행동을 취소
-stopImmediatePropagation()	함수			이벤트 캡처링이나 이벤트 버블링을 모두 취소하며
-											다른 이벤트 핸들러 호출을 막는다
-stopPropagation()			함수			이벤트 캡처링이나 이벤트 버블링을 모두 취소
+defaultPrevented			
+ - [불리언] true이면 preventDefault()가 호출된 상태
+preventDefault()
+ - [요소] 이벤트의 기본 행동을 취소
+stopImmediatePropagation()			
+ - [함수] 이벤트 캡처링이나 이벤트 버블링을 모두 취소하며  다른 이벤트 핸들러 호출을 막는다
+stopPropagation()
+ - [함수] 이벤트 캡처링이나 이벤트 버블링을 모두 취소
 ```
