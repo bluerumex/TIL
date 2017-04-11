@@ -35,26 +35,26 @@ prefix, uri는 필수, 유형은 string
 #### Core 기본 기능 태그
 ```{.javascript}
 1. 변수지원
-remove		-> 이미 설정한 변수를 삭제
-set	   	-> 범위에서 사용될 변수를 지정
+remove      -> 이미 설정한 변수를 삭제
+set	    -> 범위에서 사용될 변수를 지정
 
 2. 제어흐름
-choose		-> 태그 <when>과 <otherwise>로 구성되어 있는 여러개의 조건 중에 하나만 선정하여 처리
-  when  	  -> <choose> 태그의 서브태그로 조건이 true이면 몸체를 실행
-  otherwise   -> <choose> 태그의 서브태그로 이전에 있는 태그 when 조건이 모두 false일 경우
-forEach	   -> 다양한 콜렉션 유형에서 반복을 처리
-forTokens	 -> 문자열을 구분자로 구분하여 토큰으로 나누며 반복 실행
-if			-> 조건이 true이면 몸체 실행
+choose      -> 태그 <when>과 <otherwise>로 구성되어 있는 여러개의 조건 중에 하나만 선정하여 처리
+  when      -> <choose> 태그의 서브태그로 조건이 true이면 몸체를 실행
+  otherwise -> <choose> 태그의 서브태그로 이전에 있는 태그 when 조건이 모두 false일 경우
+forEach	    -> 다양한 콜렉션 유형에서 반복을 처리
+forTokens   -> 문자열을 구분자로 구분하여 토큰으로 나누며 반복 실행
+if	    -> 조건이 true이면 몸체 실행
 
 3. URL 관리
-import		-> 다른 페이지를 현재 위치, 또는 변수 또는 읽기 객체에 저장
-  param       -> 태그 <import>, <redirect>, <utl> 서브태그로, 매개변수 전송 처리
-redirect	  -> 새로운 URL로 이동 처리
-url		   -> 질의 매개변수를 이용하여 URL 생성
+import	    -> 다른 페이지를 현재 위치, 또는 변수 또는 읽기 객체에 저장
+  param     -> 태그 <import>, <redirect>, <utl> 서브태그로, 매개변수 전송 처리
+redirect    -> 새로운 URL로 이동 처리
+url	    -> 질의 매개변수를 이용하여 URL 생성
 
 4. 예외처리, 출력
-catch		 -> 예외처리
-out		   -> 출력처리
+catch       -> 예외처리
+out         -> 출력처리
 
 ```
 #### 변수지원 set, remove
@@ -70,7 +70,7 @@ scope  - 변수가 효력을 발휘하는 영역 page, reqeust, session, applica
 
 (상기 속성 모두 필수요소 아님)
 
-	target의 사용 예시.
+    target의 사용 예시.
     <c:set var="book" value="<%= new java.util.HashMap() %>" />
     <c:set target="${book}" property="java" value="java로 배우는 프로그래밍 기초" />
     <c:set target="${book}" property="c" value="c......" />
