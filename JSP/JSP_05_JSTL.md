@@ -1,7 +1,7 @@
 ### JSP 5. JSTL
 
-######JSTL 개요
-```
+#### JSTL 개요
+```{.javascript}
 자바에서 커스텀 태그 기능을 이용하여 활용 빈도가 높은 태그를 개발한 것
 자바 표준 태그 라이브러리(Java Standard Tag Library)이다.
 즉 JSTL은 표준커스텀 태그라 할 수 있다.
@@ -24,16 +24,16 @@ standard.jar > JSTL implementation classes (Standard Taglib JSTL 구현 클래�
 
 두개의 jar 파일을 [WEB-INF]/[lib]에 복사해서 넣는다.
 ```
-######JSTL 태그의 사용
-```
+#### JSTL 태그의 사용
+```{.javascript}
 JSTL을 사용하기 위해서는 taglib 지시자를 사용해 선언해야한다.
 prefix, uri는 필수, 유형은 string
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 간단한 출력 ex) <c:out value="Hello JSTL" />
 ```
-######Core 기본 기능 태그
-```
+#### Core 기본 기능 태그
+```{.javascript}
 1. 변수지원
 remove		-> 이미 설정한 변수를 삭제
 set	   	-> 범위에서 사용될 변수를 지정
@@ -55,10 +55,10 @@ url		   -> 질의 매개변수를 이용하여 URL 생성
 4. 예외처리, 출력
 catch		 -> 예외처리
 out		   -> 출력처리
-```
 
-###### 변수지원 set, remove
-```language
+```
+#### 변수지원 set, remove
+```{.javascript}
 set태그는 지정된 범위로 평가 값을 변수에 저장.
 <c:set var="변수이름" value="저장할 값" scope="4개중 하나.." />
 
