@@ -1,6 +1,30 @@
 ### JavaScript String Methods
 ```{.javascript}
- 
+
+```
+#### String.prototype.replace()
+```{.javascript}
+replace() 메소드는 어떤 패턴에 일치하는 일부 또는 모든 부분이 교체된 새로운 문자열을 반환
+
+Syntax
+  - str.replace(regexp|substr, newSubStr|function)
+
+Parameter
+  - regexp (pattern)
+	정규식(RegExp) 객체 또는 리터럴. 
+    이 정규식에 매칭되는 부분들은 두번째 파라미터의 반환값으로 교체
+
+  - substr (pattern)
+    검색할 문자열
+
+  - newSubStr (replacement)
+    첫번째 파라미터를 대신할 문자열(String)
+
+  - function (replacement)
+    첫번째 파라미터를 대신할 새로운 문자열을 생성하기 위해 호출할 function
+    정규표현식 매치가 수행된 후 호출, 플래그로 글로벌(g)오는 경우 함수는 매치될때 마다 계속 호출
+
+
 ```
 #### String.prototype.indexOf()
 ```{.javascript}
