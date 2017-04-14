@@ -135,5 +135,15 @@
   
   3) 도메인 무결성
     - 주어진 속성의 값이 그 속성이 정의된 데메인에 속한 값이어야 함
-  
+
+SQL
+ 1) DDL (Data Definitio Language) 데이터 정의어
+   - DBMS에서 사용할 데이터베이스의 저의 및 변경을 위해 사용하는 언어
+     CREATE, ALTER, DROP
+ 2) DCL (Data Control Language) 데이터 제어어
+   - 다수의 사용자가 데이터베이스를 고용하고 정확성을 유지하기 위한 데이터 제어를 정의하고 기술
+     GRANT, REVOKE, COMMIT, ROLLBACK
+ 3) DML (Data Manipulation Language) 데이터 조작어
+   - 사용자로 하여금 데이터를 처리할 수 있게 하는 도구 역할을 하는 언어
+     SELECT, INSERT, DELETE, UPDATE
 ```
