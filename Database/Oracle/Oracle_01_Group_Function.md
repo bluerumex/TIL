@@ -58,7 +58,7 @@ SELECT job,
 하나의 SQL 문장에 ORDER BY SAL DESC 조건과 PARTITION BY JOB 조건이 충돌이 났기 때문에
 JOB별로는 정렬되지 않고 ORDER BY SAL DESC조건으로 정렬 되었다.
 ```
-<img src="../img/oracle_01.png" />
+<img src="../../img/oracle_01.png" />
 
 ---
 ```{.sql}
@@ -72,7 +72,7 @@ SELECT job,
        DENSE_RANK () OVER (ORDER BY sal DESC) dens_rank
   FROM emp;
 ```
-<img src="../img/oracle_02.png" />
+<img src="../../img/oracle_02.png" />
 ---
 
 ```{.sql}
@@ -91,4 +91,4 @@ SELECT job,
 만약 동일한 값에 대한 순서까지 관리하고 싶다면 추가적인 정렬 기준을 정해야된다.
 ORDER BY sal DESC, ENAME 
 ```
-<img src="../img/oracle_03.png" />
+<img src="../../img/oracle_03.png" />
