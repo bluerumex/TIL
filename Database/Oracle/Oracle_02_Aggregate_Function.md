@@ -1,4 +1,4 @@
-### Oracle 2. Aggregate Function
+### Oracle 2. Aggregate Function (집계함수)
 
 #### 데이터 분석을 이한 세 가지 함수를 정의
 ```{.javascript}
@@ -27,4 +27,20 @@ DECODE(VALUE, IF1, THEN1, IF2, THEN2...) 형태로 사용 할 수 있다.
 DECODE 함수는 4번째 인자를 지정하지 않으면 NULL이 default로 할당된다.
 case문도 마찬가지...
 SUM(CASE MONTH WHEN 1 THEN SAL END)  >>  SUM(CASE MONTH WHEN 1 THEN SAL ELSE 0 END) 불필요하게 ELSE절을 상수로 넣을 필요가 없다.
+```
+#### SQL 문장 실행 순서
+```{.javascript}
+     5. SELECT
+     1. FROM
+     2. WHERE
+     3. GROUP BY
+     4. HAVING
+     6. ORDER BY
+
+1. 발췌 대상 테이블을 참조한다 (FROM)
+2. 발췌 대상 데이터가 아닌 것은 제거한다 (WHERE)
+3. 행들을 소그룹화 한다 (GROUP BY)
+4. 그룹핑된 값의 조건에 맞는것만을 출력한다 (HAVING)
+5. 데이터 값을 출력/계산한다 (SELECT)
+6. 데이터를 정렬 한다 (ORDER BY)
 ```
