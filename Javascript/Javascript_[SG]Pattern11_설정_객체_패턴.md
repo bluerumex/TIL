@@ -13,8 +13,8 @@
 addPerson("Bruce", "Wayne", new Date(), null, null, "batman");
 
 이렇게 많은 수의 매개변수를 전달하기는 불편하다.
-모든 매개변수를 하나의 객체로 만들어 대신 전달하는 방법이 더 낫다. 이 객체를 설정(configuration)을 뜻 하는
-conf라고 지정하자.
+모든 매개변수를 하나의 객체로 만들어 대신 전달하는 방법이 더 낫다. 
+이 객체를 설정(configuration)을 뜻 하는 conf라고 지정하자.
 
 addPerson(conf);
 
