@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pattern</title>
+</head>
+<body>
+<script>
+    /*
+    function getMemozation(x, y) {
+        if (getMemozation.cache.hasOwnProperty(x+y)) {
+            return getMemozation.cache[x+y];
+        }
+
+        getMemozation.cache[x+y] = x + y;
+        return x + y;
+    }
+    getMemozation.cache = {};
+    */
+
+    function getMemozation(x, y) {
+        return x + y;
+    }
+
+    Function.prototype.memoize = function() {
+        var _this = this,
+            memo = {};
+        return function() {
+            var argsString = JSON.stringify(arguments),
+                returnValue;
+
+            if (memo.hasOwnProperty(argsString)) {
+                return memo[argsString];
+            } else {
+                returnValue = _this.apply(this, arguments);
+                memo[argsString] = returnValue;
+                return returnValue;
+            }
+        }
+    }
+    var testMemo = getMemozation.memoize();
+
+    testMemo(1, 2);
+    testMemo(1, 2);
+</script>
+</body>
+</html>

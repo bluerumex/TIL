@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // 함수를 정의 한다
+    var sayHi = function(who) {
+        return "Hello" + (who ? ", " + who : "") + "!";
+    };
+
+    // 결과는 동일
+    sayHi("hello");
+    // 첫 번재는 이 함수 내에 this 와 바인딩할 객체이고,
+    // 두 번재는 배열 또는 인자(arguments)로 함수 내부에서
+    // 배열과 비슷한 형태의 arguments객체로 사용된다
+
+    // 첫 번재 매개변수가 null이면, this는 전역객체를 가리킨다
+    // 즉 함수를 특정 객체의 메서드로서가 아니라 일반적인 함수로 호춯할 때와 같다.
+    sayHi.apply(null, ["hello"]);
+
+    var alien = {
+        sayHi: function(who) {
+            return "Hello" + (who ? ", " + who : "") + "!";
+        }
+    };
+
+    alien.sayHi('world'); // "Hello, world!"
+    sayHi.apply(alien, ["human"]); // Hello, humans!"
+
+    // call() 메소드 사용
+    // 함수의 매개변수가 단 하나일 때는 굳이 배열을 만들지 않고 요소 하나만 지정
+
+    sayHi.apply(alien, ["humans"]);
+    sayHi.call(alien, "humans");
+
+    // 부분적인 적용
+    // 설명을 위한 예제 문법에 어긋 난 코드... 유효하지 않다
+    /*
+    // 이런 함수가 있고
+    function add(x, y) {
+        return x + y;
+    }
+
+    // 인자들을 알고잇다.
+    add(5, 4);
+
+    // 1단계 -- 하나의 인자를 대체 한다
+
+    function add(5, y) {
+        return 5 + y;
+    }
+    */
+
+    // 2단계 -- 나머지 인자를 대체 한다
+    /*
+    function add(5, 4) {
+        return 5 + 4;
+    }
+    */
+    // ----------  partialApply() 메소드 사용법 개념적 설명   ----------
+    /*
+    var add = function(x, y) {
+        return x + y;
+    };
+
+    // 모든 인자를 적용한다.
+    add.apply(null, [5, 4]); // 9
+
+    // 인자를 부분적으로만 적용한다.
+
+    var newadd = add.partialApply(null, [5]);
+
+    // 새로운 함수에 인자를 적용
+    newadd.apply(null, [4]);
+    */
+    // ----------  Currying   ----------
+
+    function add(x, y) {
+        var oldx = x, oldy = y;
+        if (typeof oldy === "undefined") {
+            return function (newy) {
+                return oldx + newy;
+            }
+        }
+        return x + y;
+    }
+
+    typeof add(5); // "function"
+    add(3)(4); // 7
+
+    // 새로운 함수를 만들어 저장
+    var add2000 = add(2000);
+    add2000(10); // 2010;
+
+
+</script>
+</body>
+</html>

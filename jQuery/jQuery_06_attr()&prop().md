@@ -1,7 +1,7 @@
 ### jQuery 6. attr(), prop()
 
 #### 속성의 차이?
-> .attr() 은 HTML의 속성을 취급
+> .attr() 은 HTML의 속성을 취급<br>
 > .prop() 는 Javascript의 프로퍼티를 취급
 
 ```{.javascript}
