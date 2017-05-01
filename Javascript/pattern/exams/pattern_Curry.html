@@ -87,7 +87,16 @@
         }
         return x + y;
     }
-
+    /*
+    function add(x, y) {
+        if (typeof y === "undefined") {
+            return function(y) {
+                return x + y;
+            }
+        }
+        return x + y;
+    }
+    */
     typeof add(5); // "function"
     add(3)(4); // 7
 
@@ -96,6 +105,47 @@
     add2000(10); // 2010;
 
 
+    // 범용 커링 함수 코드
+    function schonfinkelize(fn) {
+        var slice = Array.prototype.slice,
+            stored_args = slice.call(arguments, 1);
+
+        return function () {
+            var new_args = slice.call(arguments),
+                args = stored_args.concat(new_args);
+            return fn.apply(null, args);
+        }
+
+    }
+
+    // 일반 함수
+    function add(x, y) {
+        return x + y;
+    }
+
+    // 함수를 커링하여 새로운 함수를 얻는다
+    var newAdd = schonfinkelize(add, 5);
+    newAdd(4); // 9
+
+    // 반환되는 함수를 바로 호출
+    schonfinkelize(add, 6)(7); // 13
+
+    // 함수를 변형시키는 schonfinkelize() 에 매개변수를 한 개만 쓸수 있거나
+    // 커링을 한단계만 할 수 있는 건 아니다
+
+    // 일반 함수
+    function add2(a, b, c, d, e) {
+        return a + b + c + d + e;
+    }
+
+    // 여러개의 인자를 사용 할 수도 있다.
+    schonfinkelize(add, 1, 2, 3)(5, 5); // 16
+
+    // 2단계 커링
+    var addOne = schonfinkelize(add, 1);
+    addOne(10, 10, 10, 10); // 41
+    var addSix = schonfinkelize(addOne, 2, 3)
+    addSix(5, 5); // 16
 </script>
 </body>
 </html>
