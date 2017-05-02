@@ -157,6 +157,17 @@ arr.slice(0, 1);	// ["a"];
 arr.slice(1, 4);	// ["b", "c", "d"];
 
 end 인덱스는 제외하고 추출한다.
+
+
+Array-like objects
+슬라이스 메서드를 호출하여 Array와 유사한 객체 / 컬렉션을 새 Array로 변환 할 수 있다. 
+메서드를 객체에 바인딩하면, 함수 안에있는 arguments는 'array-like object'로 변환된다.
+
+function list() {
+  return Array.prototype.slice.call(arguments);
+}
+
+var list1 = list(1, 2, 3); // [1, 2, 3]
 ```
 #### Araay.prototype.map()
 ```{.javascript}

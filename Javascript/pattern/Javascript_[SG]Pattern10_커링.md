@@ -1,8 +1,6 @@
 ### JavaScript currying 패턴
 
-#### summary
 > 어떤 함수를 호출할 때 대부분의 `매개변수`가 항상 비슷하다면, `커링`의 적합한 후보
-> 
 
 #### currying
 ```{.javascript}

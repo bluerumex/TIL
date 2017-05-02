@@ -76,3 +76,40 @@ add.status = 'OK';
 자바스크립트의 모든 객체는 자신의 부모인 프로토타입 객체를 가리키는 참조 링크 형태의 숨겨진 프로퍼티가 있다.
 
 ```
+#### 함수 호이스팅(hoist)
+```{.javascript}
+모든 변수는 함수 본문 어느 부분에서 선언(declaration)이 되더라도 내부적으로 함수의 맨 윗부분으로
+끌어올려(hoist)진다.
+함수 선언문을 사용하면 변수 선언뿐 아니라 함수 정의 자체도 호이스팅되기 때무에 자칫 오류를 만들어 낼 수 도 있다.
+
+// anti pattern
+function foo() {
+	alert('global foo');
+}
+function bar() {
+	alert('globar bar');
+}
+
+function hoistMe() {
+	console.log(typeof foo); // "function"
+    console.log(typeof bar); // "undefined"
+    
+    foo(); // "local foo"
+    bar(); // TypeError: bar is not a function
+    
+    // 함수 선언문
+    // 변수 'foo'와 정의된 함수 모두 호이스팅된다.
+    function foo() {
+    	alert('local foo');
+    }
+    
+    // 함수 표현식
+    // 변수 'bar'는 호이스팅 되지만 정의된 함수는 호이스팅되지 않는다.
+    var bar = function() {
+    	alert('local bar');
+    };
+}
+
+hoistMe();
+
+```
