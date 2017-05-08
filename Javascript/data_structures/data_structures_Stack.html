@@ -35,8 +35,42 @@
         this.peek = peek;
     }
 
-    
+    /**
+     * push: 새요소를 스택에 추가할 때는 탑 위치에 요소를 저장한 다음 배열에서 빈 공간을
+     * 새로운 탑이 가리키도록 top 변수를 증가 시켜야 된다
+     */
+    function push(element) {
+        this.dataStore[this.top++] = element;
+    }
 
+    /**
+     * pop: push와 반대 동작, 스택의 탑 위치에 있는 요소를 반환한 다음 top 변수를 감소
+     */
+    function pop() {
+        return this.dataStore[--this.top];
+    }
+
+    /**
+     * peek: 배열의 top-1 위치의 요소에 접근해 스택의 탑요소를 반환
+     * 스택이 비어있을때 peek을 호출하면 undefined가 반환
+     */
+    function peek() {
+        return this.dataStore[this.top-1];
+    }
+
+    /**
+     * length: 스택의 길이 반환
+     */
+    function length() {
+        return this.top;
+    }
+
+    /**
+     * clear: top변수를 0으로 설정하면 전체 요소가 삭제된다.
+     */
+    function clear() {
+        this.top = 0;
+    }
 </script>
 </body>
 </html>
