@@ -140,7 +140,48 @@
 
     var toy = new Gadget();
     console.log(toy.name);
-    console.log(toy.sterch());
+    console.log(toy.strech());
+
+    // ---------- 비공개(private) 멤버
+    // 비공개 멤버에 대한 별도의 문법은 없지만 클로저를 사용해 구현할 수 있다
+
+    function privateGadGet() {
+        // 비공개 멤버
+        var name = "iPod";
+        this.getName = function() {
+            return name;
+        }
+    }
+
+    // ---------- 특권(privileged) 메서드
+    // 특권 메서드라는 개념은 특정한 문법과 관련이 없다.
+    // 단지 비공개 멤버에 접근권한을 가진 (즉 일종의 특권을 부여받은) 공개 메서드를 가리키는 이름일 뿐이다
+
+    // 비공개 멤버의 허점
+    function privilegedGadget() {
+        // 비공개 멤버
+        var specs = {
+            screen_width: 320,
+            screen_height: 480,
+            color: 'white'
+        }
+
+        // 공개 함수
+        this.getSpecs = function () {
+            // 여기서 getSpec 메서드가 spec객체의 참조를 반환한다는게 문제
+            return specs;
+        }
+    }
+
+    var toy2 = new privilegedGadget(),
+        specs = toy.getSpecs();
+
+    // specs는 감춰진 비공개 멤버처럼 보이지만, Gadget 사용자에 의해 변경될 소지가 있다
+    specs.color = "black";
+    specs.price = "free";
+    console.dir(toy2.getSpecs());
+
+
 
 
 
