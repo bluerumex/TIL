@@ -181,10 +181,73 @@
     specs.price = "free";
     console.dir(toy2.getSpecs());
 
+    // ---------- 객체 리터럴과 비공개 멤버
 
+    // 지금까지는 비공개 멤버를 만드는데 생성자를 사용하는 방법들만 살펴봤다
+    // 객체 리터럴로 객체를 생성한 경우엔?
+    // 여태까지 그래왔듯이 비공개 데이터를 함수로 감싸기만 하면 된다
+    // 익명함수를 추가하여 클로저를 만든다
 
+    var myObj;
+    (function() {
+        // 비공개 멤버
+        var name = 'my, oh my';
 
+        // 공개될 부분을 구현
+        // var를 사용하지 않았는데 주의
+        myobj = {
+            //  특권 메서드
+            getName: function() {
+                return name;
+            }
+        };
+    }());
 
+    myobj.getName();
+
+    // 기본 개념은 동일하지만 약간 다르게 구현
+    var myobj2 = (function() {
+        var name = "my, oh my";
+
+        return {
+            getName: function() {
+                return name;
+            }
+        };
+    }());
+
+    myobj2.getName();
+
+    // ---------- 프로토타입과 비공개 멤버
+
+    // 생성자를 사용하여 비공개 멤버를 만들 경우, 생성자를 호출하여 새로운 객체를 만들때 마다
+    // 비공개 멤버가 매번 *재생성* 된다는 단점있다
+    // 생성자 내부에서 this에 멤버를 추가하면 항상 이런 문제가 발생한다
+    // 이러한 중복을 없애고 메모르를 절약하려면 공통 프로퍼티와 메서드를 생성자의 prototype 프로퍼티에 추가해야 한다
+    // 동일한 생성자로 생성한 모든 인스턴스가 공통된 부분을 공유하게 된다
+    // 이를 위해서 두가지 패턴, 즉 생성자 함수 내부에 비공개 멤버를 만드는 패턴과
+    // 객체 리터럴로 비공개 멤버를 만드는 패턴을 함께 써야 한다
+    // 왜냐하면 prototype 프로퍼티도 결국 객체라서, 객체 리터럴로 생성할 수 있기 때문
+
+    function Gadget3() {
+        // 비공개 멤버
+        var name = 'iPod';
+        // 공개 함수
+        this.getName = function() {
+            return name;
+        };
+    }
+
+    Gadget3.prototype = (function() {
+        // 비공개 멤버
+        var browser = 'Mobile Webkit';
+        // 공개된 프로토타입 멤버
+        return {
+            getBrowser: function() {
+                return browser;
+            }
+        };
+    }());
 
 
 
