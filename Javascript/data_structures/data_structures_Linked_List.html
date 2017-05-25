@@ -52,6 +52,7 @@
         this.insert = insert;
         this.remove = remove;
         this.display = display;
+        this.findPrevious = findPrevious;
     }
 
     // 새로운 노드 삽입하기
@@ -92,12 +93,38 @@
     /**
      * display: 연결 리스트의 요소를 출력
      */
-
     function display() {
         var currNode = this.head;
         while (!(currNode.next == null)) {
             console.log(currNode.next.element);
             currNode = currNode.next;
+        }
+    }
+
+    // 연결 리스트에서 노드 삭제하기
+    // 노드를 삭제하려면 삭제하려는 바로 이전 노드를 찾아야한다
+    // 이전 노드를 찾았으면 이전 노드의 next 프로퍼티를 삭제하려는 노드의 다음 노드로 설정해야 한다
+
+    /**
+     * findPrevious: 이전 노드를 찾는다
+     */
+    function findPrevious(item) {
+        var currNode = this.head;
+        while(!(currNode.next == null) && (currNode.next.element != item)) {
+            currNode = currNode.next;
+        }
+        return currNode;
+    }
+
+    // 삭제하려는 노드를 가리키지 않도록 이전 노드의 링크를 우회시켜 원하는 노드를 삭제했다
+
+    /**
+     * remove: 삭제
+     */
+    function remove(item) {
+        var prevNode = this.findPrevious(item);
+        if (!(prevNode.next == null)) {
+            prevNode.next = prevNode.next.next;
         }
     }
 
