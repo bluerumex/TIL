@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>table, col, colgroup</title>
+    <style>
+        table, td, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 15px;
+        }
+
+    </style>
+</head>
+<body>
+<!-- -------------------- <col>, <colgroup> 태그 -------------------- -->
+<!-- col 태그 span 속성 : 열을 몇개 묶을지 지정 -->
+<table border="1">
+    <caption>colgroup 연습</caption>
+        <colgroup>
+            <col>
+            <col span="2" style="background-color: blue;">
+            <col style="background-color: yellow;">
+        </colgroup>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>
+</body>
+
+<h2>Academy</h2>
+<table>
+    <caption>학력사항</caption>
+    <thead>
+        <tr>
+            <th>출신학교</th>
+            <th>전공</th>
+            <th>기간</th>
+            <th>졸업구분</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>고등학교</td>
+            <td>.......</td>
+            <td>.......</td>
+            <td>.......</td>
+        </tr>
+        <tr>
+            <td>대학교</td>
+            <td>.......</td>
+            <td>.......</td>
+            <td>.......</td>
+        </tr>
+    </tbody>
+</table>
+</html>
