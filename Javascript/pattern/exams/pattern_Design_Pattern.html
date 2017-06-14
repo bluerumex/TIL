@@ -57,11 +57,11 @@
     function Universe2() {
         // 캐싱된 인스턴스
         var instance = this;
-        
+
         // 정상적으로 진행
         this.start_time = 0;
         this.bang = 'Big';
-        
+
         // 생성자 작성
         Universe2 = function () {
             return instance;
@@ -85,6 +85,57 @@
     console.log(uni === uni2); // true
 
     // 71->지금 예제의 한정해서 말하자면, Universe()의 프로토타입에 무언가를 추가해도 원본 생성자로 생성된 인스턴스와 연결되지 않는다
+    // 프로토타입 추가
+    Universe2.prototype.nothing = true;
+
+    var uni3 = new Universe2();
+
+    // 첫 번째 객체가 만들어진 이후
+    // 다시 프로토타입에 추가
+    Universe2.prototype.everything = true;
+
+    var uni4 = new Universe2();
+
+    // 테스트
+    console.log(uni3.nothing); // true
+    console.log(uni4.nothing); // true
+    // uni3, uni4 예상 결과와 다르게 undefined가 출력됨.. 이유는...
+
+    console.log(uni3.everything); // undefined
+    console.log(uni4.everything); // undefined
+
+    // 이 구문은 문제가 없어 보인다
+    console.log(uni3.constructor.name); // "Universe"
+    console.log(uni.constructor === Universe2); // false
+    // uni.constructor가 더 이상 Universe2() 생성자와 같지 않은 이유는 uni.constructor가 재정의된 생성자가 아닌
+    // 원본 생성자를 가리키고 있기 때문이다
+
+    // 프로토타입과 생성자 포인터가 제대로 동작해야 하는 것이 요구사항이라면, 몇가지 간단한 수정으로 이를 만족시킬 수 있다.
+    function Universe3() {
+        var instance;
+
+        // 생성자를 재작성한다
+        Universe = function Universe() {
+            return instance;
+        };
+
+        // prototype 프로퍼티를 변경한다
+        Universe.prototype = this;
+
+        // instance
+        instance = new Universe();
+
+        // 생성자 포인터를 재지정한다
+        instance.constructor = Universe;
+
+        // 정상적으로 진행한다
+        instance.start_time = 0;
+        instance.bang = 'Big';
+
+        return instance;
+    }
+
+
 </script>
 </body>
 </html>
