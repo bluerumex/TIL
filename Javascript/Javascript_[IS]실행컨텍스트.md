@@ -15,7 +15,7 @@
 새로운 컨텍스트가 생성되어
 스택에 들어가고 제어권이 그 컨텍스트로 이동한다.
 
-```{.javascript}
+```javascript
 console.log('This is global context');
 
 function ExContext1() {
@@ -23,9 +23,16 @@ function ExContext1() {
 }
 
 function ExContext2() {
-	Excontext1();
+	ExContext1();
 	console.log('This is Excontext2');
 }
 
-ExContext2()
+ExContext2();
 ```
+##### 실행 컨텍스트 생성과정
+> 실행 컨텍스트가 생성되면 자바스크립트 엔진은 해당 컨텍스트에서 실행에 필요한 여러가지 정보를
+> 담을 객체를 생성하는데 이를 `활성 객체`라고 한다
+
+`활성객체` - 이 객체에 앞으로 매개변수나 사용자가 정의한 변수 및 객체를 저장하고, 새로 만들어진 컨텍스트로 접근가능하게 되어있다. (엔진 내부에서 접근할 수 있다 사용자는 x)
+
+다음 단계에서는 arguments 객체를 생성한다. 앞서 만들어진 활성 객체는 arguments 프로퍼티로 이 arguments 객체를 참조한다 
