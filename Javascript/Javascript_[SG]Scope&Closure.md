@@ -26,7 +26,7 @@ total, last, i 값에 접근가능함	// global..
 ```
 
 ### Closure
->이미 생명 주기가 끝난 외부 함수의 변수를 참조하는 함수를 클로저라고 한다
+>이미 생명 주기가 끝난 외부 함수의 변수를 참조하는 `함수`를 클로저라고 한다
 
 * 클로저는 function안에 function이 있을 때 생성된다.
 * 클로저는 함수가 정의된 스코프 이외의 곳에서 호출될때 private 저장소처럼 활용 가능하다.
@@ -39,7 +39,8 @@ total, last, i 값에 접근가능함	// global..
 * 클로저는 함수가 메모리에서 없어질 때까지 유지된다.
 * 같은 함수더라도 다른 클로저를 가지고 있을 수 있다.
 
-```{.javascript}
+```javascript
+// ----------------------------------- Example 01 ----------------------------------- //
 function outer() {
     var count = 0;
     var inner = function() {
@@ -48,7 +49,28 @@ function outer() {
     return inner;
 }
 
+// outer 함수에서 선언된 count를 참조하는 inner함수가 클로저가 된다
+// 클로저로 참조되는 외부변수 즉, outer 함수의 count와 같은 변수를 자유 변수(Free variable)한다
+// 이 지역 변수에 접근하려면, 함수가 종료되어 외부 함수의 컨텍스트가 반환되더라도 변수 객체는 반환
+// 되는 내부 함수의 스코프 체인에 그대로 남아있어야만 접근할 수 있다. 이것이 바로 클로저다
+
+
 var increase = outer();
 increase();	//count 1
 increase();	//count 2
+
+// ----------------------------------- Example 02 ----------------------------------- //
+
+function outerFunc(arg1, arg2) {
+	var local = 8;
+    function innerFunc(innerArg) {
+    	console.log((arg1 + arg2) / (innerArg + local));
+    }
+    return innerFunc;
+}
+
+var exam1 = outerFunc(2, 4);
+exam1(2);
+
+
 ```
