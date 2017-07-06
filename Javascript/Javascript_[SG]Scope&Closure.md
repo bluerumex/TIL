@@ -92,4 +92,24 @@ var userFunc = function(greeting) {
 var objHello = new HelloFunc();
 objHello.func = userFunc;
 objHello.call();
+
+// ---------------------------------- 함수의 캡슐화 --------------------------------- //
+
+var buffAr = [
+	'I am',
+    '',
+    '. I live in ',
+    '',
+    '. I\'am ',
+    '',
+    ' years old.',
+];
+
+function getCompletedStr(name, city, age) {
+	buffAr[1] = name;
+    buffAr[2] = city;
+    buffAr[3] = age;
+    
+    return buffAr.join('');
+}
 ```
