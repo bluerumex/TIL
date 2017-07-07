@@ -95,6 +95,8 @@ objHello.call();
 
 // ---------------------------------- 함수의 캡슐화 --------------------------------- //
 
+// 문장 공백에 사용자의 입력을 받아 완성된 문장을 출력하는 방식
+
 var buffAr = [
 	'I am',
     '',
@@ -107,9 +109,41 @@ var buffAr = [
 
 function getCompletedStr(name, city, age) {
 	buffAr[1] = name;
-    buffAr[2] = city;
-    buffAr[3] = age;
-    
+    buffAr[3] = city;
+    buffAr[5] = age;
+
     return buffAr.join('');
 }
+
+var str = getcompletedStr('zzoon', 'seoul', 16);
+
+// 상기 코드의 단점
+// 배열 buffAr이 전역 변수로 외부에 노출되어있다.
+// 이는 다른 함수에서 이 배열에 쉽게 접근하여 값을 바꿀수도 있고, 실수로 같은 이름의 변수를
+// 만들어 버그가 생길수 있다. 이는 다른 코드와 통합 혹은 이 코드를 라이브러리로 만들려고 할 때,
+// 문제가 야기될 수 있다.
+
+// 클로저를 활용한 해결
+
+var getCompletedStr = (function() {
+    var buffAr = [
+        'I am',
+        '',
+        '. I live in ',
+        '',
+        '. I\'am ',
+        '',
+        ' years old.',
+    ];
+    
+    return (function(name, city, age) {
+    	buffAr[1] = name;
+        buffAr[3] = city;
+        buffAr[5] = age;
+        
+        return buffAr.join('');
+    });
+})();
+
+var str = getCompletedStr('zzoon', 'seoul', 16);
 ```
