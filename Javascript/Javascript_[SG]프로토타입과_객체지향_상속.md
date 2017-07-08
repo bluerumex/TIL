@@ -1,7 +1,7 @@
 ### JavaScript 프로토타입, 객체지향, 상속
 
-#### this의 이해
-```{.javascript}
+##### this의 이해
+```javascript
 함수를 호출하는 방법
 * 일반 함수로의 호출
 * 멤버함수로의 호출
@@ -42,8 +42,8 @@ call, apply 함수의 첫번째 인자를 undefined로 넘기면 this의 기본�
 * this는 함수나 스코프 기반으로 결정되는 것이 아니라 호출방법에 따라 변경된다.
 
 ```
-#### Prototype
-```{.javascript}
+##### Prototype
+```javascript
 다른 객체들과 공유되는 속성을 제공하는 객체이다.
 생성자가 객체를 생성할 때, 객체는 내부적으로 생성자의 prototype 속성을 활용하여 속성들의 
 레퍼런스를 참조한다. 생성자의 prototype 속성은 constructor.prototype과 같은 표현식으로
@@ -106,8 +106,8 @@ suv.go();	//SUV_WANK
 탐색하고, 없다면 다시 해당 객체의 프로토타입을 탐색하는 식으로 연쇄적인 속성 탐색이 자바스크립트 엔진에
 따라서는 다소 소모적일 수 있기 때문
 ```
-#### 상속
-```{.javascript}
+##### 상속
+```javascript
 
 * 1) 초창기 자바스크립트 상속 구현 방법
 function Person() {
