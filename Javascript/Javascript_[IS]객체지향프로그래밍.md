@@ -79,7 +79,7 @@ Person.method('getName', function() {
 
 ```
 ##### 상속
->자바스크립트는 클래스 기반으로 하는 전통적인 상속을 지원하지는 않는다.
+>자바스크립트는 클래스 기반으로 하는 전통적인 상속을 지원하지는 않는다
 >하지만 자바스크립트 특성중 객체 프로토타입 체인을 이용해 상속을 구현해 낼 수 있다
 
 ```javascript
@@ -107,17 +107,6 @@ var person = {
 
 // function create_object(o)// *create_object() 함수는 ECMAScript5에서 Object.create() 함수로 제공된다
 
-
-var person = {
-	name: 'yoon',
-    getName: function() {
-    	return this.name;
-    },
-    setName: function(arg) {
-    	this.name = arg;
-    }
-};
-
 function create_object(o) {
 	function F() {}
     F.prototype = o;
@@ -134,6 +123,30 @@ student.getAge() = function() {...}
 
 // 상기 코드로 기능을 더 확장시킬 수는 있으나 이렇게 구현하면 코드가 지저분해진다
 // 자바스크립트에서는 범용적으로 extend() 함수로 객체에 자신이 원하는 객체 혹은 함수를 추가 시킨다
+// 다음은 jQuery의 extends() 함수를 살펴보고 활용하는 방법을 구상해보자
+
+jQuery.extend = jQuery.fn.extend = function(obj, prop) {
+    // jQuery.fn은 jQuery.prototype이다
+    // extend 함수의 인자가 하나만 들어오는 경우에는 현재 객체(this)에 인자로 들어오는 객체의
+    // 프로퍼티를 복사함을 의미하고, 두개가 들어오는 경우엔는 첫 번째 객체에 두 번째 객체의 프로퍼티를
+    // 복사하겠다는 것을 뜻한다
+	if (!prop) {
+    	prop = obj;
+        obj = this;
+    }
+    for (var i in prop) {
+	    // 루프를 돌면서 prop의 프로퍼티를 obj로 복사한다
+    	obj[i] = prop[i];
+    }
+    return obj;
+}
+// 이 코드에는 약점이 있다 obj[i] = prop[i];는 얕은 복사(shallow copy)를 한다
+// 즉 문자 혹은 숫자 리터럴 등이 아닌 객체(배열, 함수 객체 포함)인 경우 해당 객체를 복사하지 않고 '참조'한다
+// 두 번째 객체의 프로퍼티가 변경되면 첫 번째 객체의 프로퍼티도 같이 변경됨을 의미한다.
+// 이것을 의도해서 작성한 경우가 아니라면, 작성자가 의도하지 않은 결과가 나오고 이를 디버깅하긴 쉬운 일이 아니다.
+// 따라서 보통 extend 함수를 구현하는 경우 대상이 객체일때는 깊은 복사(deep copy)를 하는게 일반 적이다.
+
+
 
 ```
 
