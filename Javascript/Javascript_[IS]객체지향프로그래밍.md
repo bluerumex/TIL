@@ -83,7 +83,7 @@ Person.method('getName', function() {
 >하지만 자바스크립트 특성중 객체 프로토타입 체인을 이용해 상속을 구현해 낼 수 있다
 
 ```javascript
-// ------------------------------ 프로토타입을 이용한 상속 -------------------------------- //
+// ----------------------------------- 프로토타입을 이용한 상속 ------------------------------------- //
 
 // 더글라스 크락포드의 자바스크립트 객체를 상속하는 코드
 function create_object(0) {
@@ -111,7 +111,7 @@ function create_object(o) {
 	function F() {}
     F.prototype = o;
     return new F();
-}
+} // ->>
 
 var student = create_object(person);
 
@@ -147,6 +147,74 @@ jQuery.extend = jQuery.fn.extend = function(obj, prop) {
 // 따라서 보통 extend 함수를 구현하는 경우 대상이 객체일때는 깊은 복사(deep copy)를 하는게 일반 적이다.
 
 
+// -->
+function extend(obj, prop) {
+	// sgmdhallow Copy
+    if (!prop) {
+        prop = obj;
+        obj = this;
+    }
+    for (var i in prop) {
+        obj[i] = prop[i];
+    }
+    return obj;
+}
+
+var student = create_object(person);
+var added = {
+    setAge: function(age) {
+        this.age = age;
+    },
+    getAge: function() {
+        return this.age;
+    }
+};
+
+// extend(student, added);
+// student.setAge(25);
+
+// extends(student);
+// obj => this(Window 객체), Window 객체에 함수가 추가된다.
+
+
+// ----------------------------------- 클래스 기반의 상속 ------------------------------------- //
+
+// 클래스 기반의 상속이라고는 하나, 원리는 프로토타입을 이용한 상속과 거의 비슷하다.
+// 함수의 프로토타입을 적절히 엮어서 상속을 구현, 다만 앞선 예제는 객체 리터럴로 생성된 객체의 상속을
+// 예제로 들었지만, 여기서는 클래스의 역할을 하는 함수로 상속을 구현한다.
+
+function Person(arg) {
+	this.name = arg;
+}
+
+Person.prototype.setName = function(value) {
+	this.name = value;
+};
+
+Person.prototype.getName = function() {
+	return this.name;
+};
+
+function Student(arg) {
+
+}
+
+var you = new Person('iamYoon');
+Student.prototype = you;
+
+var me = new Student('yoon'); // Student {}
+// 상기 코드의 문제점. 먼저 me 인스턴스를 생성할 때 부모 클래스인 Person의 생성자를 호출하지 않는다.
+// 이 코드로 me 인스턴스를 생성할 때 'yoon'을 인자로 넘겼으나, 이를 반영하는 코드는 어디에도 없다.
+// 결국 me 객체는 빈 객체이다.
+// setNmae() 메서드가 호출되고 나서야 me 객체에 name 프로퍼티가 만들어진다.
+// 이렇게 부모의 생성자가 호출되지 않으면, 인스턴스의 초기화가 제대로 이루어지지 않아 문제가 발생할 수 있다.
+
+function Student(arg) {
+	Person.apply(this, arguments);
+}
+
+// Student 함수 안에서 새롭게 생성된 객체를 apply 함수의 첫 번째 인자로 넘겨 person 함수를 실행 시킨다.
+// 자식 클래스의 인스턴스에 대해서도 부모 클래스의 생성자를 실행시킬 수 있다.
 
 ```
 
