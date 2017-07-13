@@ -216,6 +216,36 @@ function Student(arg) {
 // Student 함수 안에서 새롭게 생성된 객체를 apply 함수의 첫 번째 인자로 넘겨 person 함수를 실행 시킨다.
 // 자식 클래스의 인스턴스에 대해서도 부모 클래스의 생성자를 실행시킬 수 있다.
 
+// 현재는 자식 클래스의 객체가 부모 클래스의 객체를 프로토타입 체인으로 직접 접근한다.
+// 하지만 부모 클래스의 인스턴스와 자식 클래스의 인스턴스는 서로 독립적일 필요가 있다.
+
+// *두 클래스의 프로토타입사이에 중개자를 하나 만든다
+Function.prototype.method = function(name, func) {
+    this.prototype[name] = func;
+}
+
+Person.method('setName', function(value) {
+   this.name = value;
+});
+
+Person.method('getName', function() {
+    return this.name;
+});
+
+function Student(arg) {
+}
+
+function F() {};
+F.prototype = Person.prototype;
+Student.prototype = new F();
+Student.prototype.constructor = Student;
+
+Student.super_ = Person.prototype;
+
+var me = new Student();
+me.setName('yoon');
+console.log(me.getName());
+
 ```
 
 
