@@ -240,12 +240,55 @@ F.prototype = Person.prototype;
 Student.prototype = new F();
 Student.prototype.constructor = Student;
 
-Student.super_ = Person.prototype;
+Student.super = Person.prototype;
 
 var me = new Student();
 me.setName('yoon');
 console.log(me.getName());
 
 ```
+##### 캡슐화
+>캡슐화란 기본적으로 관련된 여러 가지 정보를 하나의 틀 안에 담는 것을 의미한다.
+>멤버 변수와 메서드가 서로 관련된 정보가 되고 클래스가 이것을 담는 큰 틀이라고 할 수 있다.
+>여기서 중요한 것은 정보의 공개 여부로 정보 은닉의 개념이 바로 캡슐화이다.
 
+```javascript
+// ---------------------------------------- 캡슐화 예제 ------------------------------------------ //
+var Person = function (arg) {
+	// private member
+    // this 객체의 프로퍼티로 선언하면 외부에서 new 키워드로 생성한 객체로 접근할 수 있다.
+    // 하지만 var로 선언된 메버들은 외부에서 접근이 불가능하다.
+    var name = arg ? arg : 'yoon';
+
+	// public 메소드가 클로저 역할을 하면서 private 멤버인 name에 접근 할 수 있다.
+    this.getName = function() {
+        return name;
+    }
+    this.setName = function(arg) {
+        name = arg;
+    }
+};
+
+var me = new Person();
+console.log(me.getName());
+me.setName('iamyoon');
+console.log(me.getName());
+console.log(me.name); // undefined
+
+// 상기 코드를 다듬은 형태
+var person = function(arg) {
+	var name = arg ? arg : 'yoon';
+
+    return {
+    	getName: function() {
+        	return name;
+        },
+        setName: function(arg) {
+        	name = arg;
+        }
+    };
+}
+
+var me = new Person(); /* or var me = new Person(); */
+```
 
