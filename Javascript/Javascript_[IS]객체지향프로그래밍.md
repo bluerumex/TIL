@@ -144,7 +144,7 @@ jQuery.extend = jQuery.fn.extend = function(obj, prop) {
 // 즉 문자 혹은 숫자 리터럴 등이 아닌 객체(배열, 함수 객체 포함)인 경우 해당 객체를 복사하지 않고 '참조'한다
 // 두 번째 객체의 프로퍼티가 변경되면 첫 번째 객체의 프로퍼티도 같이 변경됨을 의미한다.
 // 이것을 의도해서 작성한 경우가 아니라면, 작성자가 의도하지 않은 결과가 나오고 이를 디버깅하긴 쉬운 일이 아니다.
-// 따라서 보통 extend 함수를 구현하는 경우 대상이 객체일때는 깊은 복사(deep copy)를 하는게 일반 적이다.
+// 따라서 보통 extend 함수를 구현하는 경우 대상이 객체일때는 깊은 복사(deep copy)를 하는게 일반적이다.
 
 
 // -->
@@ -289,6 +289,83 @@ var person = function(arg) {
     };
 }
 
+// 리턴되는 객체에는 name에 접근할 수 있는 메소드가 담겨있다.
+// 한가지 주의할 점으로는 접근하는 private 멤버가 객체나 배열이면 얕은복사로 참조만을 반환
+
 var me = new Person(); /* or var me = new Person(); */
+
+// 현재 예제에서 사용자가 반환받은 객체는 Person 함수 객체의 프로토타입에는 접근할 수 없다는 단점이 있다.
+// 이는 Person 함수 객체의 프로토타입에는 접근할 수 없다는 뜻으로 상속을 구현하기가 용이 하지 않다.
+// 이를 보완하기 위해서는 함수를 반환하는 것이 좋다.
+
+var person = function(arg) {
+	var name = arg ? arg : 'yoon';
+
+	var Func = function() {}
+    Func.prototype = {
+    	getName: function() {
+        	return name;
+        },
+        setName: function(arg) {
+        	name = arg;
+        }
+    };
+    
+    return Func;
+}();
+
+
+// ----------------------------------- 객체지향 프로그래밍응용 예제 ------------------------------------- //
+
+// 1.클래스의 기능을 가진 subClass 함수
+// 함수의 프로토타입 체인
+// extend 함수
+// 인스턴스를 생성할 때 생성자 호출 (여기서는 생성자를 _init 함수로 정한다)
+
+// 1.1 subClass 함수 구조
+// subClass는 상속받을 클래스에 넣을 변수 및 메서드가 담긴 객체를 인자로 받아 부모 함수를 상속
+// 받는 자식 클래스를 만든다.
+// 부모 함수는 subClass() 함수를 호출할 때 this 객체를 의미한다.
+
+var SuperClass = subClass(obj);
+var SubClass = SuperClass.subClass(obj);
+
+// SuperClass를 상속받는 subClass를 만들고자 할 때, SuperClass.subClass()의 형식으로 호출한다.
+
+// subClass의 구조
+
+function subClass(obj) {
+	// (1) 자식 클래스 (함수 객체) 생성
+    // (2) 생성자 호출
+    // (3) 프로토타입 체인을 활용한 상속 구현
+    // (4) obj를 통해 들어온 변수 및 메소드를 자식 클래스에 추가
+    // (5) 자식 함수 객체 반환
+}
+
+// 1.2 자식 클래스 생성 및 상속
+
+function subClass(obj) {
+	.....
+
+    var parent = this;
+    var F = function () {};
+
+    var child = function() {
+    };
+
+    // 프로토 타입 체이닝
+    F.prototype = paren.prototype;
+    child.prototype = new F();
+    child.prototype.constructor = child;
+    child.parent = parent.prototype;
+    child.parent_constructor = parent;
+
+    ....
+    return child;
+}
+
+
+
+
 ```
 
