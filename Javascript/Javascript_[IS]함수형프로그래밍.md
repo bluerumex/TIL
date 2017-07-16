@@ -30,8 +30,80 @@ encrypted_value = get_encrypted(f1);
 // 함수를 또 하나의 값으로 간주하여 함수의 인자 혹은 반환값으로 사용할 수 있는 함수를
 // 고계함수(High-order function)이라 한다.
 
+// 개발자는 입력으로 넣을 암호화 함수를 새롭게 만드는 방식으로 암호화 방법을 개선할 수 있다.
+// 내부 데이터 및 상태는 그대로 둔채 제어할 함수를 변경 및 조합함으로써 원하는 결과를 얻어내는
+// 것이 함수형 프로그래밍의 중요한 특성이다.
 
-// ---------------------------------------- 클래스 예제 ---------------------------------------- //
+// ----------------------------------- 1. 배열의 각 원소 총합 구하기 ----------------------------------- //
+
+// 배열의 각 원소 총합 구하기
+function sum(arr) {
+    var len = arr.length;
+    var i = 0, sum = 0;
+
+    for (; i < len; i++) {
+        sum += arr[i];
+    }
+
+    return sum;
+}
+
+var arr = [1,2,3,4];
+console.log(sum(arr)); // 출력값 10
+
+// 일반적인 총합 구하기 방식
+// 추가로 각 원소를 모두 곱한 값을 구한다고 가정하자
+
+function multiple(arr) {
+	var len = arr.length;
+    var i = 0, result = 1;
+
+    for (; i < len; i++) {
+    	result *= arr[i];
+    }
+
+    return result;
+}
+
+// 문제 하나하나를 각각의 함수를 구현하여 문제를 풀고 있다.
+// 함수형 프로그래밍을 이용해 다시 코드를 작성해보자.
+
+function reduce(func, arr, memo) {
+	var len = arr.length,
+    	i = 0,
+        accum = memo;
+
+    for (; i < len; i++) {
+    	accum = func(accum, arr[i]);
+    }
+
+    return accum;
+}
+
+var arr = [1,2,3,4];
+
+var sum = function(x, y) {
+	return x + y;
+};
+
+var multiply = function(x, y) {
+	return x * y;
+};
+
+console.log(reduce(sum, arr, 0));
+console.log(reduce(multiply, arr, 1);
+
+
+// --------------------------------------------- 2. 팩토리얼 --------------------------------------------- //
+
+function fact(num) {
+	var val = 1;
+    for (var i = 2; i <= num; i++) {
+    	val = val * 1;
+    }
+    return val;
+}
+
 ```
 
 
