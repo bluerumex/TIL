@@ -11,7 +11,7 @@
 
 // ---------------------------------------- 클래스 예제 ---------------------------------------- //
 function Person(arg) {
-	this.name = arg;
+    this.name = arg;
 
     this.getName = function() {
     	return this.name;
@@ -37,15 +37,15 @@ me.setName('wook');
 // Prototype 활용
 
 function Person(arg) {
-	this.name = arg;
+    this.name = arg;
 }
 
 Person.prototype.getName = function() {
-	return this.name;
+    return this.name;
 }
 
 Person.prototype.setName = function() {
-	this.name = value;
+    this.name = value;
 }
 
 // Person prototype 프로퍼티에 getName()과 setName() 함수를 정의
@@ -62,19 +62,19 @@ Function.prototype.method = function(name, func) {
 
 // 이 함수를 이용한 형태
 Function.prototype.method = function(name, func) {
-	this.prototype[name] = func;
+    this.prototype[name] = func;
 }
 
 function Person(arg) {
-	this.name = arg;
+    this.name = arg;
 }
 
 Person.method('setName', function(value) {
-	this.name = value;
+    this.name = value;
 });
 
 Person.method('getName', function() {
-	return this.name;
+    return this.name;
 });
 
 ```
@@ -87,7 +87,7 @@ Person.method('getName', function() {
 
 // 더글라스 크락포드의 자바스크립트 객체를 상속하는 코드
 function create_object(0) {
-	function F() {}
+    function F() {}
     F.prototype = 0;
     return new F();
 }
@@ -96,7 +96,7 @@ function create_object(0) {
 // 따로 구현할 필요 없다
 
 var person = {
-	name: 'yoon',
+    name: 'yoon',
     getName: function() {
     	return this.name;
     },
@@ -108,7 +108,7 @@ var person = {
 // function create_object(o)// *create_object() 함수는 ECMAScript5에서 Object.create() 함수로 제공된다
 
 function create_object(o) {
-	function F() {}
+    function F() {}
     F.prototype = o;
     return new F();
 } // ->>
@@ -135,7 +135,7 @@ jQuery.extend = jQuery.fn.extend = function(obj, prop) {
         obj = this;
     }
     for (var i in prop) {
-	    // 루프를 돌면서 prop의 프로퍼티를 obj로 복사한다
+        // 루프를 돌면서 prop의 프로퍼티를 obj로 복사한다
     	obj[i] = prop[i];
     }
     return obj;
@@ -149,7 +149,7 @@ jQuery.extend = jQuery.fn.extend = function(obj, prop) {
 
 // -->
 function extend(obj, prop) {
-	// sgmdhallow Copy
+    // shallow Copy
     if (!prop) {
         prop = obj;
         obj = this;
@@ -184,15 +184,15 @@ var added = {
 // 예제로 들었지만, 여기서는 클래스의 역할을 하는 함수로 상속을 구현한다.
 
 function Person(arg) {
-	this.name = arg;
+    this.name = arg;
 }
 
 Person.prototype.setName = function(value) {
-	this.name = value;
+    this.name = value;
 };
 
 Person.prototype.getName = function() {
-	return this.name;
+    return this.name;
 };
 
 function Student(arg) {
@@ -210,7 +210,7 @@ var me = new Student('yoon'); // Student {}
 // 이렇게 부모의 생성자가 호출되지 않으면, 인스턴스의 초기화가 제대로 이루어지지 않아 문제가 발생할 수 있다.
 
 function Student(arg) {
-	Person.apply(this, arguments);
+    Person.apply(this, arguments);
 }
 
 // Student 함수 안에서 새롭게 생성된 객체를 apply 함수의 첫 번째 인자로 넘겨 person 함수를 실행 시킨다.
@@ -255,12 +255,12 @@ console.log(me.getName());
 ```javascript
 // ---------------------------------------- 캡슐화 예제 ------------------------------------------ //
 var Person = function (arg) {
-	// private member
+    // private member
     // this 객체의 프로퍼티로 선언하면 외부에서 new 키워드로 생성한 객체로 접근할 수 있다.
     // 하지만 var로 선언된 메버들은 외부에서 접근이 불가능하다.
     var name = arg ? arg : 'yoon';
 
-	// public 메소드가 클로저 역할을 하면서 private 멤버인 name에 접근 할 수 있다.
+    // public 메소드가 클로저 역할을 하면서 private 멤버인 name에 접근 할 수 있다.
     this.getName = function() {
         return name;
     }
@@ -277,7 +277,7 @@ console.log(me.name); // undefined
 
 // 상기 코드를 다듬은 형태
 var person = function(arg) {
-	var name = arg ? arg : 'yoon';
+    var name = arg ? arg : 'yoon';
 
     return {
     	getName: function() {
@@ -299,9 +299,9 @@ var me = new Person(); /* or var me = new Person(); */
 // 이를 보완하기 위해서는 함수를 반환하는 것이 좋다.
 
 var person = function(arg) {
-	var name = arg ? arg : 'yoon';
+    var name = arg ? arg : 'yoon';
 
-	var Func = function() {}
+    var Func = function() {}
     Func.prototype = {
     	getName: function() {
         	return name;
@@ -335,7 +335,7 @@ var SubClass = SuperClass.subClass(obj);
 // subClass의 구조
 
 function subClass(obj) {
-	// (1) 자식 클래스 (함수 객체) 생성
+    // (1) 자식 클래스 (함수 객체) 생성
     // (2) 생성자 호출
     // (3) 프로토타입 체인을 활용한 상속 구현
     // (4) obj를 통해 들어온 변수 및 메소드를 자식 클래스에 추가
@@ -345,7 +345,7 @@ function subClass(obj) {
 // 1.2 자식 클래스 생성 및 상속
 
 function subClass(obj) {
-	.....
+    .....
 
     var parent = this;
     var F = function () {};
