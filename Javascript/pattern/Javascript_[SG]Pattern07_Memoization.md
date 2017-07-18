@@ -1,9 +1,8 @@
-### JavaScript Memoization 패턴
+### JavaScript Memoization Pattern
 
 ##### Memoization
 >패턴의 이름대로 '메모'를 하는 것이 특징인데, 메모를 하는 대상은 바로 함수 또는 객체이다.
-특정 아이템을 검색하려고 할 때, 검색 결과를 ID 기반으로 캐시 처리하는 메모제이션 패턴
-기본적으로 계산된 결과를 함수 프로퍼티값으로 담아 놓고 나중에 사용한다.
+특정 아이템을 검색하려고 할 때, 검색 결과를 ID 기반으로 캐시를 처리한다
 
 ```javascript
 (function () {
