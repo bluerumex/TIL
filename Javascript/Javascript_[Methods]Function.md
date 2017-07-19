@@ -1,6 +1,6 @@
 ### JavaScript Function Methods
 
-```{.javascript}
+```javascript
 모든 함수는 객체로서 prototype 프로퍼티를 가지고 있다.
 prototype 프로퍼티는 내부 프로퍼티인 __prototype__과 혼동하지 말아야 한다.
 
@@ -11,16 +11,19 @@ prototype 프로퍼티는 내부 프로퍼티인 __prototype__과 혼동하지 �
 prototype과 constructor라는 프로퍼티로 서로를 참조하게 된다.
 
 함수                       프로토타입객체
-prototype -------------> 
+prototype ------------->
           <-------------   constructor
 
 ```
+##### Function.prototype.apply()
+>주어진 this 값과 arguments로 함수를 호출 arguments에는 배열(또는 유사배열객체 array-like object)가 올 수 있다.
 
-#### Function.prototype.apply()
-```{.javascript}
-Summary
-주어진 this 값과 arguments로 함수를 호출
-arguments에는 배열(또는 유사배열객체 array-like object)가 올 수 있다.
+```javascript
+// 왜 이름이 apply일까?
+// 함수를 호출할 때 call이라는 용어만을 대부분 사용했을 것이다.
+// 함수형 프로그래밍에서는 특정 데이터를 여러 가지 함수를 적용시키는 방식으로 작업을 수행한다.
+// 여기서 함수는 단순히 입력을 넣고 출력을 받는 기능을 수행해야하는 것 뿐만 아니라,
+// 인자 혹은 반환 값으로 전달된 함수를 특정 데이터에 적용시키는 개념으로 이해해야 한다.
 
 Syntax
 fun.apply(thisArg, [argsArray])
@@ -33,12 +36,12 @@ thisArg
 
 argsArray
 유사배열객체, 특히 함수가 호출될 때 생성된 arguments객체, 함수에 전달한 인자가 없는 경우는
-null 또는 undefined, ECMAScript5 
+null 또는 undefined, ECMAScript5
 ```
-#### Function.prototype.call()
-```{.javascript}
-call() 메소드는 주어진 this 값 및 각자에게 제공된 인수를 갖는 함수를 호출합니다.
+##### Function.prototype.call()
+>call() 메소드는 주어진 this 값 및 각자에게 제공된 인수를 갖는 함수를 호출한다.
 
+```javascript
 Syntax
 fun.call(thisArg[, arg1[, arg2[, ...]]])
 
