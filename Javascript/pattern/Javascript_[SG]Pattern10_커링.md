@@ -69,6 +69,22 @@ function curry(func) {
 }
 
 var new_func1 = curry(calculate, 1);
-console.log(new_func1(2, 3)); // 1 x 2 + 3 = 5
+console.log(new_func1(2, 3)); // 1 * 2 + 3 = 5
+var new_func2 = curry(calculate, 1, 3);
+console.log(new_func2(3)); // 1 * 3 + 3 = 6
 
+// calculate() 함수는 인자 세개를 받아 연산을 수행하고 결과값을 반환한다.
+// 여기서 curry() 함수로 첫 번째 인자를 1로 고정시킨 새로운 함수 new_func1()과 첫 번째, 두 번째
+// 인자를 1과 3으로 고정시킨 new_func2()함수를 새로 만들 수 있다.
+// curry() 함수의 역할은 간단하다. 넘어온 인자를 args에 담아 놓고, 새로운 함수 호출로 넘어온
+// 인자와 합쳐서 함수를 적용한다.
+
+// Funtion.prototype에 커링 함수를 정의하여 사용할 수 있다.
+
+Function.prototype.curry = function() {
+	var fn = this, args = Array.prototype.slice.call(arguments);
+    return function() {
+    	return fn.apply(this, args.concat(Array.prototype.slice.call(arguments)));
+    }
+};
 ```
