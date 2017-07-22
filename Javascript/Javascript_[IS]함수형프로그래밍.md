@@ -113,6 +113,47 @@ function fact(num) {
     }
 }
 
+// --------------------------------------------- 3. bind 함수 --------------------------------------------- //
+
+// 커링과 같이 사용자가 고정시키고자 하는 인자를 bind() 함수를 호출할 때 인자로 넘겨주고
+// 반환받은 함수를 호출하면서 나머지 가변 인자를 넣어줄 수 있다.
+
+Function.prototype.bind = function(thisArg) {
+    var fn = this;
+    var slice = Array.prototype.slice;
+    var args = slice.call(arguments, 1);
+
+    return function() {
+        return fn.apply(thisArg, args.concat(slice.call(arguments)));
+    };
+}
+
+
+// myfunc() 함수는 myobj 객체를 this에 바인딩시켜 print_all()함수를 실행하는 새로운 함수이다
+// 한발 더 나아가서 myfunc1()을 실행하면 인자도 bind() 함수에 모두 넘겨진다
+// 이와같이 특정 함수에 원하는 객체를 바인딩시켜 새로운 함수를  사용할 때 bind() 함수가 사용된다
+
+var print_all = function(args) {
+	for (var i in this) {
+    	console.log(i + ' : ' + this[i]);
+    }
+    for (var i in arguments) {
+    	console.log(i + ' : ' + arguments[i]);
+    }
+}
+
+var myobj = {name : 'yoon'};
+
+var myfunc = print_all.bind(myobj);
+myfunc(); // name : yoon 출력
+
+vaar myfunc1 = print_all.bind(myobj, 'iamyoon', 'others');
+myfunc1('insidejs');
+
+// name : yoon
+// 0 : iamyoon
+// 1 : others
+// 2 : insidejs
 ```
 
 
