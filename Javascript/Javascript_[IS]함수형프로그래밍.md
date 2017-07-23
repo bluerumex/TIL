@@ -113,7 +113,7 @@ function fact(num) {
     }
 }
 
-// --------------------------------------------- 3. bind 함수 --------------------------------------------- //
+// --------------------------------------------- 3. bind --------------------------------------------- //
 
 // 커링과 같이 사용자가 고정시키고자 하는 인자를 bind() 함수를 호출할 때 인자로 넘겨주고
 // 반환받은 함수를 호출하면서 나머지 가변 인자를 넣어줄 수 있다.
@@ -154,6 +154,42 @@ myfunc1('insidejs');
 // 0 : iamyoon
 // 1 : others
 // 2 : insidejs
+
+
+
+// --------------------------------------------- 4. Wrapper --------------------------------------------- //
+
+// 래퍼(wrapper)란  쉽게 말하면 특정 함수를 자신의 함수로 덮어쓰는 것을 말한다.
+// 원래 함수 기능을 잃어버리지 않은 상태로 자신의 로직을 수행할 수 있어야 한다.
+// 객체지향프로그래밍에서 다형성(polymorphism)의 특성을 살리려면 오버라이드(override)를 지원
+// 하는데 이와 유사하다고 생각하면 된다.
+
+function wrap(object, method, wrapper) {
+	var fn = object[method];
+    return object[method] = function() {
+    	return wrapper.apply.apply(this, [ fn ].concat(
+        // return wrapper.apply(this, [ fn.bind(this) ].concat(
+        Array.prototype.slice.call(arguments)));
+    };
+}
+
+Function.prototype.original = function(value) {
+	this.value = value;
+    cnosole.log('value : ' + this.value);
+}
+
+var mywrap = wrap(Function.prototype, 'original', function(orig_func, value) {
+	this.value = 20;
+    orig_func(value);
+    console.lo('wrapper value : ' + this.value);
+});
+
+var obj = new mywrap('yoon');
+// 출력
+// value : yooon
+// wrapper value : 20
+
+
 ```
 
 
