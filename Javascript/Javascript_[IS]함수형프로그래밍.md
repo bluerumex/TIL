@@ -167,7 +167,7 @@ myfunc1('insidejs');
 function wrap(object, method, wrapper) {
 	var fn = object[method];
     return object[method] = function() {
-    	return wrapper.apply.apply(this, [ fn ].concat(
+    	return wrapper.apply(this, [ fn ].concat(
         // return wrapper.apply(this, [ fn.bind(this) ].concat(
         Array.prototype.slice.call(arguments)));
     };
@@ -175,7 +175,7 @@ function wrap(object, method, wrapper) {
 
 Function.prototype.original = function(value) {
 	this.value = value;
-    cnosole.log('value : ' + this.value);
+    console.log('value : ' + this.value);
 }
 
 var mywrap = wrap(Function.prototype, 'original', function(orig_func, value) {
@@ -189,6 +189,11 @@ var obj = new mywrap('yoon');
 // value : yooon
 // wrapper value : 20
 
+// Function.prototype에 original 이라는 ㅎ마수가 있고, 이는 인자로 넘어온 값을 value에 할당하고 출력하는 기능
+// 을 한다. 이를 사용자가 덮어쓰기 위해 wrap 함수를 호출,
+// 세번재 인자로 넘긴 자신의 익명 함수를 Function.prototype.original에 덮어쓰려는 것이다.
+// 여기서 사용자는 자신의 익명수의 첫 번째 인자로 원래 함수의 참조를 받을 수 있다.
+// 이 참조로 원래 함수를 실행하고 자신의 로직을 수행할 수 있다.
 
 ```
 
