@@ -226,7 +226,6 @@ var yoon = {
 each(yoon, function(idx, value) {
     console.log(idx + ': ' + value)
 });
-
 ```
 
 
