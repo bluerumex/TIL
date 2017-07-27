@@ -113,6 +113,7 @@ function fact(num) {
     }
 }
 
+
 // --------------------------------------------- 3. bind --------------------------------------------- //
 
 // 커링과 같이 사용자가 고정시키고자 하는 인자를 bind() 함수를 호출할 때 인자로 넘겨주고
@@ -156,7 +157,6 @@ myfunc1('insidejs');
 // 2 : insidejs
 
 
-
 // --------------------------------------------- 4. Wrapper --------------------------------------------- //
 
 // 래퍼(wrapper)란  쉽게 말하면 특정 함수를 자신의 함수로 덮어쓰는 것을 말한다.
@@ -174,14 +174,14 @@ function wrap(object, method, wrapper) {
 }
 
 Function.prototype.original = function(value) {
-	this.value = value;
+this.value = value;
     console.log('value : ' + this.value);
 }
 
 var mywrap = wrap(Function.prototype, 'original', function(orig_func, value) {
 	this.value = 20;
     orig_func(value);
-    console.lo('wrapper value : ' + this.value);
+    console.log('wrapper value : ' + this.value);
 });
 
 var obj = new mywrap('yoon');
@@ -194,6 +194,38 @@ var obj = new mywrap('yoon');
 // 세번재 인자로 넘긴 자신의 익명 함수를 Function.prototype.original에 덮어쓰려는 것이다.
 // 여기서 사용자는 자신의 익명수의 첫 번째 인자로 원래 함수의 참조를 받을 수 있다.
 // 이 참조로 원래 함수를 실행하고 자신의 로직을 수행할 수 있다.
+
+
+// --------------------------------------------- 4. Each --------------------------------------------- //
+
+// each 함수는 배열의 각 요소 혹은 객체의 각 프로퍼티를 하나씩 꺼내서 차례대로 특정 함수에 인자로 넣어
+// 실행시키는 역할을 한다.
+function each(obj, fn, args) {
+    if (obj.length == undefined) {
+        for (var i in obj) {
+            fn.apply(obj[i], args || [i, obj[i]]);
+        }
+    } else {
+        for (var i = 0; i < obj.lenght; i++) {
+            fn.apply(obj[i], args || [i, obj[i]]);
+        }
+    }
+    return obj
+}
+
+each([1,2,3], function(idx, num) {
+    console.log(idx + ': ' + num);
+});
+
+var yoon = {
+    name: 'wook',
+    age: 30,
+    sex: 'Male'
+};
+
+each(yoon, function(idx, value) {
+    console.log(idx + ': ' + value)
+});
 
 ```
 
