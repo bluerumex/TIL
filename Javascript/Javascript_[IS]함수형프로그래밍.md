@@ -174,7 +174,7 @@ function wrap(object, method, wrapper) {
 }
 
 Function.prototype.original = function(value) {
-this.value = value;
+	this.value = value;
     console.log('value : ' + this.value);
 }
 

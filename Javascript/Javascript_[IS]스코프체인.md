@@ -69,7 +69,7 @@ var value = 'value1';
 
 function printfunc() {
 	var value = 'value2';
-    
+
     function printValue() {
     	return value;
     }
