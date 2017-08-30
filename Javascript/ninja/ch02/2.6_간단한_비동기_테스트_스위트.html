@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Suite</title>
+</head>
+<body>
+<script>
+    (function() {
+        var queue = [];
+        var pause = false;
+        var results;
+        this.test = function(name, fn) {
+            queue.push(function() {
+                results = documents.getElementById('results');
+                results = assert(true, name).appendChild(documents.createElement('ul'));
+                fn();
+            });
+            runTest();
+        };
+        this.pause = function() {
+            pause = true;
+        };
+        this.resume = function() {
+            pause = false;
+            setTimeout(runTest, 1);
+        };
+        function runTest() {
+            if (!paused && queue.length) {
+                queue.shift()();
+                if (!paused) {
+                    resume();
+                }
+            }
+        }
+        this.assert = function assert(value, desc) {
+            
+        }
+
+    })();
+</script>
+</body>
+</html>
