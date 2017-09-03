@@ -28,7 +28,8 @@
  용인       |  20 |   200
  일산       | 100 |   100
 
-UNION을 사용한 방법
+- UNION을 사용한 방법
+
 이 문제를 절차지향적인 사고방식을 가진다면, 일단 남성의 인구를 지역별로 구하고,
 여성의 인구를 지역별로 구한 뒤 머지(MERGE)하는 방법을 생각할 것이다.
 
@@ -48,8 +49,8 @@ FROM   (SELECT prefecture,
         WHERE  sex = '2') z
 GROUP  BY prefecture;
 
-원하는 결과를 도출할 수 있지만 이 쿼리의 가장 큰 문제는 WHERE구에서 sex 필드로 분기를 하고, 결과를
-UNION으로 머지한다는 절차 지향적인 구성에 있다.
+원하는 결과를 도출할 수 있지만 이 쿼리의 가장 큰 문제는 WHERE구에서 sex 필드로 분기를 하고,
+결과를 UNION으로 머지한다는 절차 지향적인 구성에 있다.
 
 집계의 조건 분기도 CASE식을 활용
 실행계획 또한 더 간단하진다.
@@ -83,6 +84,47 @@ GROUP  BY prefecture;
  204    |       4 | Bree             | 관리
  205    |       1 | Kim              | 상품기획
  205    |       2 | Kim              | 개발
+
+
+// 원하는 출력 결과
+     emp_name     |        team
+------------------+--------------------
+ Jim              | 개발
+ Joe              | 3개 이상을 겸무
+ Bree             | 3개 이상을 겸무
+ Kim              | 2개를 겸무
+ Carl             | 영업
+
+- UNION으로 조건 분기
+SELECT emp_name,
+       Max(team) AS team
+FROM   employees
+GROUP  BY emp_name
+HAVING Count(*) = 1
+UNION
+SELECT emp_name,
+       '2개를 겸무' AS team
+FROM   employees
+GROUP  BY emp_name
+HAVING Count(*) = 2
+UNION
+SELECT emp_name,
+       '3개 이상을 겸무' AS team
+FROM   employees
+GROUP  BY emp_name
+HAVING Count(*) >= 3;
+
+- CASE 식을 사용한 조건 분기
+SELECT emp_name,
+       CASE
+         WHEN Count(*) = 1 THEN Max(team)
+         WHEN Count(*) = 2 THEN '2개를 겸무'
+         WHEN Count(*) >= 2 THEN '2개 이상을 겸무'
+       END AS team
+FROM   employees
+GROUP  BY emp_name;
+
+
 
 ```
 
