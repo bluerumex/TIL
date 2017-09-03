@@ -43,9 +43,9 @@ SQL의 격언
 '조건 분기를 WHERE구로 하는 사람들은 초보자다. 잘하는 사람은 SELECT 구만으로 조건 분기를 한다'
 
 SELECT item_name, year,
-	   CASE WHEN year <= 2001 THEN price_tax_ex
-            WHEN year >= 2002 THEN price_tax_in
-       END AS price
+CASE WHEN year <= 2001 THEN price_tax_ex
+	WHEN year >= 2002 THEN price_tax_in
+END AS price
 FROM items;
 
 QUERY PLAN
@@ -58,8 +58,6 @@ UNION과 CASE 쿼리의 구문적인 관점에서 비교
 UNION을 사용한 분기는 SELECT '구문'을 기본 단위로 분기하고 있다. 구문을 기본 단위로 사용하고 있다는
 점에서 아직 절차 지향형의 발상을 벗어나지 못한 방법이라고 말할 수 있다.
 반면 CASE 식을 사용한 분기는 문자 그대로 '식'을 바탕으로 하는 사고라 할수 있다
-
-
 ```
 
 
