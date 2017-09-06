@@ -41,41 +41,30 @@ CASE식을 사용할 수 없다는 것은 아닌데,
  5        | e    |            |       |            |       | 2013-11-01 | T
 
 - UNION을 사용한 방법
-SELECT key,
-       name,
-       date_1,
-       flg_1,
-       date_2,
-       flg_2,
-       date_3,
-       flg_3
-FROM   threeelements
-WHERE  date_1 = '2013-11-01'
-       AND flg_1 = 'T'
+
+SELECT key, name,
+       date_1, flg_1,
+       date_2, flg_2,
+       date_3, flg_3
+　FROM ThreeElements
+ WHERE date_1 = '2013-11-01'
+   AND flg_1 = 'T'
 UNION
-SELECT key,
-       name,
-       date_1,
-       flg_1,
-       date_2,
-       flg_2,
-       date_3,
-       flg_3
-FROM   threeelements
-WHERE  date_2 = '2013-11-01'
-       AND flg_2 = 'T'
+SELECT key, name,
+       date_1, flg_1,
+       date_2, flg_2,
+       date_3, flg_3
+　FROM ThreeElements
+ WHERE date_2 = '2013-11-01'
+   AND flg_2 = 'T'
 UNION
-SELECT key,
-       name,
-       date_1,
-       flg_1,
-       date_2,
-       flg_2,
-       date_3,
-       flg_3
-FROM   threeelements
-WHERE  date_3 = '2013-11-01'
-       AND flg_3 = 'T';
+SELECT key, name,
+       date_1, flg_1,
+       date_2, flg_2,
+       date_3, flg_3
+　FROM ThreeElements
+ WHERE date_3 = '2013-11-01'
+　 AND flg_3 = 'T';
 
 이 쿼리를 최적의 성능으로 수행하려면 다음과 같은 필드 조합에 인덱스가 필요하다.
 CREATE INDEX IDX_1 ON ThreeElements (date_1, flg_1) ;
