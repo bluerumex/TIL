@@ -147,7 +147,41 @@ Nested Loops의 내부 테이블 결합 키에 인덱스가 존재하면 성능�
 
 Receipts 테이블의 최소값과 최대값의 차이를 구하는 필드
 
-- 
+ cust_id | diff
+---------+------
+ D       |    0
+ B       | -900
+ C       |  550
+ A       | -200
+
+SELECT TMP_MIN.cust_id,
+       TMP_MIN.price - TMP_MAX.price AS diff
+　FROM (SELECT R1.cust_id, R1.seq, R1.price
+          FROM Receipts R1
+                 INNER JOIN
+                  (SELECT cust_id, MIN(seq) AS min_seq
+                     FROM Receipts
+                    GROUP BY cust_id) R2
+            ON R1.cust_id = R2.cust_id
+           AND R1.seq = R2.min_seq) TMP_MIN
+       INNER JOIN
+       (SELECT R3.cust_id, R3.seq, R3.price
+          FROM Receipts R3
+                 INNER JOIN
+                  (SELECT cust_id, MAX(seq) AS min_seq
+                     FROM Receipts
+                    GROUP BY cust_id) R4
+            ON R3.cust_id = R4.cust_id
+           AND R3.seq = R4.min_seq) TMP_MAX
+    ON TMP_MIN.cust_id = TMP_MAX.cust_id;
+
+- 다시 서브쿼리 의존중
+서브쿼리를 사용해 구하는 방법
+최솟값의 집합을 찾고, 최댓값의 집합을 찾은 뒤 고객 ID를 키로 결합
+상기 쿼리는 코드가 굉장히 길고, 가독성도 좋지 않다.
+그리고 서브쿼리의 계층이 굉장히 깊어서 어떤 부분이 서브쿼리인지 확인하는것도 힘들다
+이전 쿼리를 두 번 붙여 넣기 한것이라 테이블에 대한 접근도 2배가 되어 4번이 이루어진다
+따라서 성능이 좋은쿼리라 할 수가 없다
 ```
 
 
