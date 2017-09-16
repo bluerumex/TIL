@@ -181,7 +181,22 @@ SELECT TMP_MIN.cust_id,
 상기 쿼리는 코드가 굉장히 길고, 가독성도 좋지 않다.
 그리고 서브쿼리의 계층이 굉장히 깊어서 어떤 부분이 서브쿼리인지 확인하는것도 힘들다
 이전 쿼리를 두 번 붙여 넣기 한것이라 테이블에 대한 접근도 2배가 되어 4번이 이루어진다
-따라서 성능이 좋은쿼리라 할 수가 없다
+따라서 성능이 좋은 쿼리라 할 수가 없다.
+
+- 레코드 간 비교에서도 결합은 불필요
+SELECT cust_id,
+       SUM(CASE WHEN min_seq = 1 THEN price ELSE 0 END)
+         - SUM(CASE WHEN max_seq = 1 THEN price ELSE 0 END) AS diff
+　FROM (SELECT cust_id, price,
+               ROW_NUMBER() OVER (PARTITION BY cust_id
+                                      ORDER BY seq) AS min_seq,
+               ROW_NUMBER() OVER (PARTITION BY cust_id
+                                      ORDER BY seq DESC) AS max_seq
+          FROM Receipts ) WORK
+ WHERE WORK.min_seq = 1
+    OR WORK.max_seq = 1
+ GROUP BY cust_id;
+
 ```
 
 
