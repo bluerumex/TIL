@@ -43,6 +43,28 @@ SELECT student_id,
           FROM Weights W2
          WHERE W2.student_id <= W1.student_id) AS seq
 　FROM Weights W1
+
+// ------------------------------- 2. 기본키가 여러 개의 필드로 구성되는 경우 ------------------------------------ //
+
+학급(class), 학생(student_id)가 기본키
+
+ class | student_id | weight
+-------+------------+--------
+     1 | 100        |     50
+     1 | 101        |     55
+     1 | 102        |     56
+     2 | 100        |     60
+     2 | 101        |     72
+     2 | 102        |     73
+     2 | 103        |     73
+
+- 윈도우 함수를 사용
+SELECT class, student_id,
+       ROW_NUMBER() OVER (ORDER BY class, student_id) AS seq
+　FROM Weights2;
+
+- 상관 서브쿼를 사용
+
 ```
 
 
