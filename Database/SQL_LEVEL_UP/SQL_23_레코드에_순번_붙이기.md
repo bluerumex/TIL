@@ -64,6 +64,35 @@ SELECT class, student_id,
 　FROM Weights2;
 
 - 상관 서브쿼를 사용
+SELECT class, student_id,
+       (SELECT COUNT(*)
+          FROM Weights2 W2
+         WHERE W2.class = W1.class
+           AND W2.student_id <= W1.student_id) AS seq
+　FROM Weights2 W1;
+
+이 방법의 장점은 필드 자료형을 원하는대로 지정할 수 있다.
+숫자와 문자열, 문자열과 숫자라도 가능하다. 암묵적인 자료형 변환도 발생하지 않으므로 기본키 인덱스도
+사용할 있고, 필드가 3개 이상일 때도 간단하게 확장이 가능하다.;
+
+// ------------------------------- 3. 그룹마다 순번을 붙이는 경우 ------------------------------------ //
+학급마다 순번을 붙이는 경우
+테이블을 그룹으로 나누고 그룹마다 내부 레코드에 순번을 붙여보자.
+
+ class | student_id | weight | seq
+-------+------------+--------+-----
+     1 | 100        |     50 |   1
+     1 | 101        |     55 |   2
+     1 | 102        |     56 |   3
+     2 | 100        |     60 |   1
+     2 | 101        |     72 |   2
+     2 | 102        |     73 |   3
+     2 | 103        |     73 |   4
+
+- 윈도우 함수를 사용
+SELECT class, student_id,
+       ROW_NUMBER() OVER (PARTITION BY class ORDER BY student_id) AS seq
+　FROM Weights2;
 
 ```
 
