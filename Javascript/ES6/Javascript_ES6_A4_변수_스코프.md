@@ -3,8 +3,9 @@
 >ECMAScript 6 문법
 
 ##### A.4 변수 스코프
-```java
+```javascript
 // A4.1 호이스팅
+
 // ES5에서 변수의 스코프는 항상 애매한 문제였다.
 // ES5에서는 변수를 선언한 위치와 관계없이 var 키워드가 스코프의 제일 위로 옮겨져 선언 되는데
 // 이것을 호이스팅이라고 한다.
@@ -57,6 +58,37 @@ var doSomething = function() {
 
 // A4.2 let과 cosnt를 사용하는 변수 스코프
 
+// ES에서는 변수를 선언할 때 var 대신 let 키워드를 사용해서 변수의 스코프 문제를 해결한다.
+
+let customer ='Joe';
+
+(function() {
+    console.log('The name of the customer inside the function is ' + customer);
+
+    if (2 > 1) {
+        let customer = 'Mary';
+        console.log('The name of the customer inside the bloock is ' + customer);
+    }
+}());
+
+for(let i = 0; i < 5; i++) {
+    console.log('i=' + i);
+}
+
+console.log('i=' + i); // prints Uncaught RefrenceError: i is not defined
+
+The name of the customer inside the function is Joe
+The name of the customer inside the bloock is Mary
+i=0
+i=1
+i=2
+i=3
+i=4
+
+// const 키워드로 선언하는 변수도 let과 접근 범위가 같고, 유일하게 다른 점은
+// const 키워드로 선언한 변수는 상수로 선언되고, 선언할 때 할당된 값을 이후에 변경할수 없다
+// 정리하자면 코드를 작성할 때 var 대신 const를 사용하고, 값이 변하는 변수에만 let을 쓰는 것이 좋다
+// const키워드를 최대한 사용하자
 ```
 
 
