@@ -72,6 +72,36 @@ var stockQuoteGenerator = new StockQuoteGenerator('IBM');
 // 틀어지는 상황을 방지할 수 있다.
 // 위 코드에서 setInteval()에 전달된 함수에서 사용하는 this.symbol 값은 StockGenerator() 함수안에
 // 선언한 것과 같이 IBM이다.
+
+
+// A.5.1 나머지 연산자(Rest Operator), 전개 연산자(Spread Operator)
+// 함수에서 개수가 고정되지 않은 인자를 사용하려면 arugments 객체를 사용해야 했다.
+// 인자의 개수가 달라지기 때문에 함수 선언에는 이 내용을 표현할 수 없었기 때문이다.
+// arguments 객체는 배열과 비슷하지만 배열은 아니며, 지역변수처럼 사용되는 경우가 많았다
+
+// ES6에서 도입된 나머지 연산자와 전개 연산자는 마침표 세 개(...)로 표현한다
+
+function processCustomers(...customers) {
+	// 함수 구현
+}
+
+'use strict'
+
+// ES5 and arguments object
+function calTaxES5() {
+    console.log('ES5. Calculating tax for customers with the income arguements[0]');
+
+    var customers = [].slice.call(arguments, 1);
+    // Array.prototype.slice.call 대신 [].slice.call(arguments) 형태로 사용 가능
+
+    customers.forEach(function(customer) {
+        console.log('Processing ', customer);
+    });
+}
+
+calTaxES5(50000, 'Smith', 'Johnson', 'McDonald');
+calTaxES5(750000, 'Olison', 'Clinton');
+
 ```
 
 
