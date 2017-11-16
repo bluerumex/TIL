@@ -77,30 +77,50 @@ var stockQuoteGenerator = new StockQuoteGenerator('IBM');
 // A.5.1 나머지 연산자(Rest Operator), 전개 연산자(Spread Operator)
 // 함수에서 개수가 고정되지 않은 인자를 사용하려면 arugments 객체를 사용해야 했다.
 // 인자의 개수가 달라지기 때문에 함수 선언에는 이 내용을 표현할 수 없었기 때문이다.
-// arguments 객체는 배열과 비슷하지만 배열은 아니며, 지역변수처럼 사용되는 경우가 많았다
+// arguments 객체는 배열과 비슷하지만 배열은 아니며, 지역변수처럼 사용되는 경우가 많았다.
 
-// ES6에서 도입된 나머지 연산자와 전개 연산자는 마침표 세 개(...)로 표현한다
+// ES6에서 도입된 나머지 연산자와 전개 연산자는 마침표 세 개(...)로 표현한다.
+// 나머지 연산자는 전달 인자의 개수가 고정되지 않는 함수에 사용하며,
+// 함수의 전달 인자중에서는 '마지막'에 사용해야 한다.
+// 함수에 전달되는 인자의 이름에 나머지 연산자가 사용되면 그 인자는 [배열]로 선언된다.
 
 function processCustomers(...customers) {
-	// 함수 구현
+    // 함수 구현
 }
 
 'use strict'
 
 // ES5 and arguments object
-function calTaxES5() {
-    console.log('ES5. Calculating tax for customers with the income arguements[0]');
+function calcTaxES5() {
+    console.log('ES5. Calculating tax for customers with the income arguments[0]');
 
-    var customers = [].slice.call(arguments, 1);
+    var customers = [].slice.call(arguments, 1, 2);
     // Array.prototype.slice.call 대신 [].slice.call(arguments) 형태로 사용 가능
 
-    customers.forEach(function(customer) {
+    customers.forEach(function (customer) {
         console.log('Processing ', customer);
     });
 }
 
-calTaxES5(50000, 'Smith', 'Johnson', 'McDonald');
-calTaxES5(750000, 'Olison', 'Clinton');
+// calcTaxES5(50000, 'Smith', 'Johnson', 'McDonald');
+// calcTaxES5(750000, 'Olson', 'Clinton');
+
+// ES6 and rest Operator(나머지 연산자)
+function calcTaxES6(income, ...customers) {
+    console.log('ES6. Calculating tax for customers with the income ', income);
+
+    customers.forEach(function(customer) {
+       console.log('Processing ', customer);
+    });
+}
+
+calcTaxES6(50000, 'Smith', 'Johnson', 'McDonald');
+calcTaxES6(750000, 'Olson', 'Clinton');
+
+
+// 나머지 연산자가 가변 인자를 하나의 배열로 바꾸는 것과 반대로,
+// 전개 연산자는 배열의 각 항목을 개별 변수로 분리한다.
+
 
 ```
 
