@@ -75,6 +75,7 @@ var stockQuoteGenerator = new StockQuoteGenerator('IBM');
 
 
 // A.5.1 나머지 연산자(Rest Operator), 전개 연산자(Spread Operator)
+
 // 함수에서 개수가 고정되지 않은 인자를 사용하려면 arugments 객체를 사용해야 했다.
 // 인자의 개수가 달라지기 때문에 함수 선언에는 이 내용을 표현할 수 없었기 때문이다.
 // arguments 객체는 배열과 비슷하지만 배열은 아니며, 지역변수처럼 사용되는 경우가 많았다.
@@ -121,6 +122,100 @@ calcTaxES6(750000, 'Olson', 'Clinton');
 // 나머지 연산자가 가변 인자를 하나의 배열로 바꾸는 것과 반대로,
 // 전개 연산자는 배열의 각 항목을 개별 변수로 분리한다.
 
+function calcTaxSpread(customer1, customer2, customer3, income) {
+    console.log('ES6. Calculating tax for customers with the income ', income);
+    console.log('Processing ', customer1, customer2, customer3);
+}
+
+var customers = ['Smith', 'John'];
+calcTaxSpread(...customers, 5000);
+
+// 전개 연산자는 위치와 관계없이 자유롭게 사용할 수 있다.
+
+
+// A.5.2 제네레이터(Generator)
+// 일반적으로 Javascript 함수는 한번 실행되면 멈추지 않는다.
+// 제네레이터 함수는 몇 번이고 멈출 수 있고, 멈춘 시점을 다시 이어서 실행할 수도 있다.
+// 다른 제네레이터 함수에 조작 권한을 넘기는 것도 가능하다.
+
+function* doSomething() {
+    console.log('Started processing');
+    yield;
+    console.log(('Resumed processing'));
+}
+
+// doSomething();
+// var iterator = doSomething();
+// 제네레이터르 실행하면 함수의 코드가 실행되는 대신, 이터레이터로 사용할 수 있는 Generator 객체를 반환한다.
+// 함수의 몸체를 실행하려면 next() 함수를 호출한다.
+// iterator.next(); // console.log() > Started processing 출력
+// 다시 실행하면 Resumed processing을 출력한다
+
+// Generator 함수 예제
+function* getStockPrice(symbol) {
+    while(true) {
+        yield Math.random() * 100;
+        console.log((`resuming for ${symbol}`));
+    }
+}
+
+let generator = getStockPrice('IBM');
+
+const limitPrice = 15;
+let price = 100;
+
+while (price > limitPrice) {
+    price = generator.next().value;
+    console.log(`The generator returned ${price}`);
+}
+
+console.log(`buying at ${price} !!!`);
+
+
+// A.5.3 비구조화(Destructuring)
+// getStock() 함수가 Stock 객체를 반환하는데 Stock 객체에 있는 프로퍼티를 지역 변수로 받아서 사용할려면
+// 아래와 같이 변수를 선언하고 각각의 항목을 지정해야된다.
+
+var stock = getStock();
+var symbol = stock.symbol;
+var price = stock.price;
+
+// ES6에서는 등호 왼족에 패턴을 정의하고, 오른쪽에 Stock 객체를 지정한다
+let {symbol, price} = getStock();
+
+function getStock() {
+    return {
+        symbol: 'IBM',
+        price: 100.00
+    }
+}
+
+let {symbol, price} = getStock();
+console.log(`The price of ${symbol} is ${price}`);
+
+// 비구조화 표현식은 어떤 형태의 데이터를 한 번에 여러 변수로 분해할 때 사용하는 문법이다.
+// 그리고 getStock)() 함수가 반환하는 Stock() 객체에 symbol, price 외에 다른 프로퍼티가 있어도
+// 등호 왼쪽에 지정된 패턴에 맞는 symbol과 price만 추출되며, 패턴 이외의 프로퍼티는 무시된다.
+
+// 의도적으로 새로운 변수에 할당하고 싶을때?
+let {symbol: sym, price} = getStock();
+
+// 기본값을 지정하는 방법
+let {symbol, price, stockExchage="NASDAQ"} = getStock();
+
+// 중첩된 객체 적용
+let mstf = {
+    symbol: 'MSFT',
+    lastPrice: 50.00,
+    exchange: {
+        name: 'NASDAQ',
+        tradingHours: '9:30am-4pm'
+    }
+};
+
+let {symbol, exchange: {name} } = getprintStockInfo(mstf);
+
+// 배열분해
 
 ```
 
