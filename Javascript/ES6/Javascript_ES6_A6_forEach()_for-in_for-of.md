@@ -36,7 +36,20 @@ for (let n in numbersArray) {
 // 이 동작은 프로퍼티 전부를 사용할때는 적합하지만, 배열의 각 항목을 순회하는 일반적인 용도로 사용한다면 주의해야된다.
 
 
+// A.6.3 for-of
+// ES6에 새로 도입된 문법으로 데이터 컬렉션을 순회한다는 점은 다른 루프 문법과 같지만,
+// 컬렉션의 값을 기준으로 순회하며, 데이터 컬렉션에 속하지 않은 프로퍼티는 무시한다.
 
+for (let n of numberArray) {
+    console.log(n);
+    // 1, 2, 3, 4 배열 컬렉션의 값만 출력
+}
+
+// for-of 루프는 Array, Map, Set과 같이 반복 가능한(iterable) 객체에는 모두 사용할 수 있으며
+// 문자열에도 사용할 수 있다.
+
+for (let char of "john") {
+    console.log(cahr);
+    // J, o, h, n
+}
 ```
-
-

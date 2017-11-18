@@ -240,7 +240,7 @@ let customers = ['Smith', 'Clinton', 'Lou', 'Gonzales'];
 let [fisrtCust, secondCust, ...otherCust] = customers;
 
 console.log(`The fisrst customer is ${firstCust} and the second one is ${secondCust}`);
-console.log('Other customers are ${otherCust}`); // Lou, Gonzales
+console.log(`Other customers are ${otherCust}`); // Lou, Gonzales
 ```
 
 
