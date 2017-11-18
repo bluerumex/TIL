@@ -215,8 +215,32 @@ let mstf = {
 
 let {symbol, exchange: {name} } = getprintStockInfo(mstf);
 
-// 배열분해
+// 배열 분해
 
+// 배열을 분해하는 것도 객체를분해하는 것과 비슷하지만, 중괄호를 사용하지 않고 대괄호를 사용
+let [name1, name2] = ['Smith', 'Clinton'];
+
+// 실행결과
+name1 = Smith, name2 = Clinton;
+
+// 위 배열에서 두 번째 항목만 추출할려고 할때
+let [, name2] = ['Smith', 'Clinton'];
+
+// 좀 더 긴 배열을 반환하는 함수
+function getCustomers() {
+    return ['Smith', , , 'Gonzales'];
+}
+
+// 배열을 분해할때는 인덱스를 기준으로 값을 추출한다.
+let [firstCustomer, , , lastCustomer] = getCustomers();
+console.log(`The first customer is ${firstCustomer} and the last one is ${lastCustomer}`);
+
+// 배열 분해와 나머지 연산자를 같이 적용
+let customers = ['Smith', 'Clinton', 'Lou', 'Gonzales'];
+let [fisrtCust, secondCust, ...otherCust] = customers;
+
+console.log(`The fisrst customer is ${firstCust} and the second one is ${secondCust}`);
+console.log('Other customers are ${otherCust}`); // Lou, Gonzales
 ```
 
 
