@@ -106,6 +106,25 @@ console.log(A.counter) // 2
 
 
 // A.7.3 getter, setter, 메소드 정의
+// ES6에 추가된 기능은 아니지만, 메소드를 정의하는 새로운 문번과 관련이 있기 때문에 살펴보자
+
+var Tax = {
+    taxableIncome: 0,
+    get income() { return this.taxableIncome; },
+    set income(value) { this.taxableIncome = value; },
+    calculateTax() { return this.taxableIncome * 0.13; }
+};
+
+Tax.income = 50000;
+console.log('Income : ' + Tax.income); // Income : 50000
+
+// 프로퍼티의 값을 바꾸거나 콘솔에 메시지를 출력할 때 Tax 객체의 income 프로퍼티에 접근하고 있지만 실제 Tax 객체에는
+// income 프로퍼티가 없고, 게터와 세터에 사용한 메서드의 이름이 외부에서 접근하는 프로퍼티 이름이 된다.
+
+// ES6에서는 function 키워드를 생략해도 메소드로 정의가능하다 (calculateTax() 함수 선언 참고)
 
 
+// A.7.4 super 키워드와 super() 함수
+// super() 함수는 자식 클래스의 생성자에서 부모 클래스의 생성자를 실행할 때 사용하며,
+// super 키워드는 부모 클래스에 정의된 프로퍼티나 메소드를 참조할 때 사용
 ```
