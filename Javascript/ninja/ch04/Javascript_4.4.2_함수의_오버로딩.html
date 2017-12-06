@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../scripts/assert.js"></script>
+    <link href="../styles/assert.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<input id="first" />
+<input id="second" />
+<script>
+    function merge(root) {
+        for (var i = 1; i < arguments.length; i++) {
+            for (var key in arguments[i]) {
+                root[key] = arguments[i][key];
+            }
+        }
+        return root;
+    }
+
+    var merged = merge({name: 'Batou'}, {city: 'Niihama'});
+
+
+    function addMethod(object, name, fn) {
+        var old = object[name];
+        object[name] = function() {
+            if (fn.length == arguments.length) {
+                return fn.apply(this, arguments);
+            } else {
+                return old.apply(this, arguments);
+            }
+        }
+    }
+
+    var ninjas = {
+        values: ['Dean Edwards', 'Sam Stephenson', 'Alex Ressell']
+    }
+
+    addMethod(ninjas, 'find', function() {
+        return this.values;
+    });
+
+    addMethod(ninjas, 'find', function(name) {
+       var ret = [];
+
+       for (var i = 0; i < this.values.length; i++) {
+           if (this.values[i].indexOf(name) == 0) {
+               ret.push(this.values[i]);
+           }
+       }
+       return ret;
+    });
+
+    addMethod(ninjas, 'find', function(first, last) {
+       var ret = [];
+       for (var i = 0; i < this.values.length; i++) {
+           if (this.values[i] == (first + ' ' + last)) {
+               ret.push(this.values[i]);
+           }
+       }
+       return ret;
+    });
+</script>
+</body>
+</html>
