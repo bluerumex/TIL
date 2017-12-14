@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../scripts/assert.js"></script>
+    <link href="../styles/assert.css" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-2.2.4.js"
+            integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<script>
+    // 클로저와 즉시실행함수의 개념은 아주 유용한데, 라이브러리의 많은 부분을 가능한 독립적으로
+    // 유지할 수 있게 그리고 변수들을 선별해서 전역 네임스페이스에 둘 수 있게 도와준다.
+    (function() {
+        var jQuery = window.jQuery = function () {
+            // 초기화
+        }
+    })();
+
+
+</script>
+</body>
+</html>

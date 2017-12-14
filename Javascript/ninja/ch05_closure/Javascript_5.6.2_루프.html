@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../scripts/assert.js"></script>
+    <link href="../styles/assert.css" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-2.2.4.js"
+            integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<script>
+    // 즉시실행함수는 루프와 클로저를 사용할 때 발생하는 까다로운 문제를 해결하는데 유용하다
+    var divs = document.getElementsByTagName('div');
+
+    for (var i = 0; i < divs.length; i++) {
+        divs[i].addEventListener('click', function() {
+            alert('div #' + i + ' was Clicked');
+        }, false);
+    }
+
+    // 의도와 다르게 각 div Element를 클릭했을때
+    // div #2 was Clicked 결과만 보여준다.
+    // loop와 클로저를 함게 사용할 때 흔히 접하게 되는 문제로 함수가 설정된 이후에 클로저에
+    // 포함된 변수(i)의 값이 변경되는 것이다.
+    // 모든 이벤트 핸들러가 alert()를 호출할 때 항상 i 에 마지막으로 저장된 값 (2)를 사용하게 된다.
+
+    // 이런 문제가 발생하게 되는 잉는 클로저가 자신이 포함하고 있는 변수의 값
+    // (클로저가 생성되는 시점에 저장되어 있던)을 기억하는게 아니라 참조를 기억하고 있기 때문이다.
+
+    // 또 다른 클롲와 즉시실행함수를 이용해서 해결이 가능하다.
+    for (var i = 0; i < div.length; i++) {
+        divs[i].addEventListener('click', (function(n) {
+            alert('div #' + n +' was Clicked');
+        })(i));
+    }
+    // 즉시실행ㅎ마수를 for문의 본문으로 사용하면(블록을 즉시실행함수로 교체함) 즉시실행함수에 순서 값
+    // (ordinal value)를 전달함으로서 핸들러에서 (그리고 내부 함수의 클로저에서도) 정확한 값을
+    // 사용할 수 가 있다.
+</script>
+</body>
+</html>
