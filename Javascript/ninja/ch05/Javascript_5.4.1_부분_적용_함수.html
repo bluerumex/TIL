@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../scripts/assert.js"></script>
+    <link href="../styles/assert.css" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-2.2.4.js"
+            integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<script>
+    Function.prototype.curry = function() {
+        var fn = this;
+        var args = Array.prototype.slice.call(arguments);
+
+        return function() {
+            return fn.apply(this, args.concat(Array.prototype.slice.call(arguments)));
+        }
+    }
+
+    Function.prototype.partial = function() {
+        var fn = this;
+        var args = Array.prototype.slice.call(arguments);
+        return function() {
+            var arg = 0;
+            for (var i = 0; i < args.length && arg < arguments.length; i++) {
+                if (args[i] === undefined) {
+                    args[i] = arguments[arg++];
+                }
+            }
+            return fn.apply(this, args);
+        };
+    };
+
+    String.prototype.csv = String.prototype.split.partial(/,\s*/);
+
+    var results = ('Mugan, Jin, Fuu').csv();
+
+    assert(results[0] == 'Mugan' && results[1] == 'Jin' && results[2] == 'Fuu',
+    'The text values were split properly');
+
+
+</script>
+</body>
+</html>

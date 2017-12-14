@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../scripts/assert.js"></script>
+    <link href="../styles/assert.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<input id="first" />
+<input id="second" />
+<script>
+    var store = {
+        nextId: 1,
+        cache: {},
+        add: function(fn) {
+            if (!fn.id) {
+                fn.id = store.nextId++;
+                return !!(store.cache[fn.id] = fn);
+            }
+        }
+    };
+
+    function ninja() {}
+
+    assert(store.add(ninja), "Function was safely added.");
+    assert(!store.add(ninja), "But it was only added once.");
+
+    function isPrime(value) {
+        if (!isPrime.answer) isPrime.answer = {};
+
+        if (isPrime.answer[value] != null) {
+            return isPrime.answer[value];
+        }
+
+        var prime = value != 1;
+        for (var i = 2; i < value ; i++) {
+            if  (value % i == 0) {
+                prime = false;
+                break;
+            }
+        }
+        return isPrime.answer[value] = prime;
+    }
+
+    assert(isPrime(5), "5는 소수다");
+    assert(isPrime.answer[5], "캐시된 응답이 반환된다.");
+
+    // 유사배열 객체예제
+    var elems = {
+        length: 0,
+        add: function(elem) {
+            Array.prototype.push.call(this, elem);
+        },
+        gather: function (id) {
+            this.add(document.getElementById(id));
+        }
+    };
+
+    elems.gather('first');
+    assert(elems.length == 1 && elems[0].nodeType, '수집한 엘레멘트가 저장되어 있는지 확인한다.');
+    elems.gather('second');
+    assert(elems.length == 2 && elems[1].nodeType, '추가로 엘레멘트가 저장되어 있는지 확인한다.');
+
+    function smallest(array) {
+        return Math.min.apply(Math, array);
+    }
+
+    function largest(array) {
+        return Math.max.apply(Math, array);
+    }
+
+    assert(smallest([0,1,2,3]) == 0, "최소값의 위치를 찾았다.");
+    assert(largest([0,1,2,3]) == 3, "최대값의 위치를 찾았다.");
+</script>
+</body>
+</html>

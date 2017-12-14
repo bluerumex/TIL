@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../scripts/assert.js"></script>
+    <link href="../styles/assert.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<script>
+    function isPalindrome(text) {
+        if (text.length <= 1) {
+            return true;
+        }
+
+        if (text.charAt(0) != text.charAt(text.length - 1)) {
+            return false;
+        }
+
+        return isPalindrome(text.substring(1, text.length - 2));
+    }
+
+    function chirp(n) {
+        return n > 1 ? chirp(n-1) + "-chirp" : "chirp";
+    }
+
+    var ninja = {
+        chirp: function(n) {
+            return n > 1 ? ninja.chirp(n-1) + "-chirp" : "chirp";
+        }
+    }
+
+    var samurai = {chirp: ninja.chirp};
+
+    ninja = {};
+
+    try {
+        assert(samurai.chirp(3) == "chirp-chirp-chirp", '이 코드는 동작 할까?');
+    } catch (e) {
+        assert(false, '어라 이게 아닌데! ninja.chirp는 어디로 사라진걸까?');
+    }
+
+
+    var num1 = 5;
+    var num2 = num1;
+
+    console.log("num1의 값은? " + num1);
+    console.log("num2의 값은? " + num2);
+
+    num1 = 7;
+
+    console.log("num1의 값은? " + num1);
+    console.log("num2의 값은? " + num2);
+
+</script>
+</body>
+</html>

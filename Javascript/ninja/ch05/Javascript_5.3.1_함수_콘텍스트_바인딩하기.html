@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../scripts/assert.js"></script>
+    <link href="../styles/assert.css" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-2.2.4.js"
+            integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+            crossorigin="anonymous"></script>
+    <style type="text/css">
+        #box { position: absolute; border: 3px solid blue; width: 200px; height: 200px; background-color: #6495ed; font-size: 2em; }
+    </style>
+</head>
+<body>
+<button id="test">Click Me!</button>
+<script>
+    // 익명 함수, apply(), 클로저의 조합을 이용해서 항상 원하는 컨텍스트를 가지고 특정 함수 호출을 강제
+    function bind(context, name) {
+        return function() {
+            return context[name].apply(context, arguments);
+        }
+    }
+
+    var button = {
+        clicked: false,
+        click: function() {
+            this.clicked = true;
+            assert(button.clicked, '버튼이 클릭됨');
+        }
+    }
+
+    var elem = document.getElementById('test');
+    // 브라우저의 이벤트 핸들링 시스템은 이벤트의 대상(target) 엘리멘트를 이벤트 핸들러 함수의 컨텍스트로
+    // 지정하기 때문에, button 객체가 아니라 <button> 엘리먼트가 click 함수의 컨텍스트가 된다
+    //elem.addEventListener('click', button.click, false);
+
+    elem.addEventListener('click', bind(button, 'click'), false);
+
+    Function.prototype.bind = function() {
+        var fn = this;
+        var args = Array.prototype.slice.call(arguments);
+        var object = args.shift();
+
+        return function() {
+            fn.apply(object, args.concat(Array.prototype.slice.call(arguments)));
+        };
+    };
+
+    var myObject = {};
+    function myFunction() {
+        return this == myObject;
+    }
+
+    assert(!myFunction(), '컨텍스트가 아직 설정되지 않았다.');
+
+    var aFunction = myFunction.bind(myObject);
+    assert(aFunction(), '컨텍스트가 제대로 설정되었다.'); // error
+</script>
+</body>
+</html>

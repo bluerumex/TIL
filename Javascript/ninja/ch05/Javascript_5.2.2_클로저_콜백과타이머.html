@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../scripts/assert.js"></script>
+    <link href="../styles/assert.css" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-2.2.4.js"
+            integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+            crossorigin="anonymous"></script>
+    <style type="text/css">
+        #box { position: absolute; border: 3px solid blue; width: 200px; height: 200px; background-color: #6495ed; font-size: 2em; }
+    </style>
+</head>
+<body>
+<div id="testSubject"></div>
+<button type="button" id="testButton">Go!</button>
+
+<hr>
+
+<div id="box">박스</div>
+<script>
+
+    $('#testButton').click(function() {
+        var $elem = $('#testSubject');
+
+        $elem.html('로딩중...');
+
+        $.ajax({
+            url: 'test.html',
+            success: function(html) {
+                assert($elem, '콜백 함수의 클로저를 통해서 $elem 변수를 참조할 수 있다.');
+                $elem.html(html);
+            }
+        });
+    });
+
+
+    // 5.6 타이머 콜백 내에서 클로저 사용하기
+    function animateIt(elementId) {
+        var elem = document.getElementById(elementId);
+        var tick = 0;
+
+        var timer = setInterval(function() {
+            if (tick < 100) {
+                elem.style.left = elem.style.top = tick + 'px';
+                tick++;
+            } else {
+                clearInterval(timer);
+                assert(tick == 100, '클로저를 통해 tick 변수에 접근한다') ;
+                assert(elem, 'elem 변수 역시 클로저를 통해 접근한다');
+                assert(timer, 'timer 변수에 대한 참조 역시 클로저를 통해 얻을 수 있다.');
+            }
+        }, 10);
+    }
+
+    animateIt('box');
+
+</script>
+</body>
+</html>

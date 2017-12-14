@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../scripts/assert.js"></script>
+    <link href="../styles/assert.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<script>
+    function Ninja() {
+        var feints = 0;
+
+        this.getFeints = function() {
+            return feints;
+        }
+
+        this.feint = function() {
+            feints++;
+        };
+    }
+
+    var ninja = new Ninja();
+    ninja.feint();
+
+    assert(ninja.getFeints() == 1, '생성자 함수 내부에 있는 feint 변수의 값을 얻어올 수 있다.');
+    assert(ninja.feints === undefined, '하지만 private 변수에는 직접 접근할 수 없다.');
+
+
+</script>
+</body>
+</html>
