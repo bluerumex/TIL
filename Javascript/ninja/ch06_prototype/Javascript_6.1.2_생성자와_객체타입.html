@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../scripts/assert.js"></script>
+    <link href="../styles/assert.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<script>
+    // 자바스크립트가 어떻게 프로퍼티 참조를 조정하며 언제 프로토타입을 사용하는지 알아야두야 하지만,
+    // 어떤 함수가 객체 인스턴스를 생성했는지 아는 것도 유용하다.
+
+    // 6.1.2 생성자와 객체타입
+    function Ninja(){}
+
+    var ninja = new Ninja();
+
+    // 이 방식으로는 ninja가 Object 인것만 알 수 있다.
+    assert(typeof ninja == 'Object', '인스턴스의 타입은 Object이다.');
+
+    // ninja의 타입을 테스트한다. Ninja로 부터 생성되었다는 것을 알 수있다.
+    assert(ninja instanceof Ninja, 'instanceof를 사용하여 생성자를 식별함');
+
+    // constructor 참조를 사용하여 ninja의 타입을 테스트한다. constructor 프로퍼티는 실제 생성자 함수를 참조한다.
+    assert(ninja.constructor == Ninja, 'Ninja함수를 사용하여 ninja 개체를 만들었다.');
+
+    // constructor 프로퍼티 참조를 사용하여 새 객체 인스턴스를 만든다.
+    var ninja66_1 = Ninja();
+
+    // 원본 Ninja 생성자 함수에 직접 접근하지 않고도 이를 사용할 수 있다.
+    // 또한 원본 생성자함수가 더 이상 유효범위에 있지 않더라도 사용이 가능하다.
+    var ninja66_2 = new ninja66_1.constructor();
+
+    assert(ninja66_2 instanceof Ninja, '닌자가 맞다.');
+    // 두 객체는 같지 않고 서로 별개의 인스턴스이다.
+    assert(ninja66_1 !== ninja66_2, '하지만 같은 닌자는 아니다.');
+
+
+
+
+</script>
+</body>
+</html>
