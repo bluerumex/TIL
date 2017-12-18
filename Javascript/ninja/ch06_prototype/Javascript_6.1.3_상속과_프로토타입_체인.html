@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../scripts/assert.js"></script>
+    <link href="../styles/assert.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<script>
+    // instanceof 연산자는 객체 상속과 관련하여 또 다른 유용한 기능을 제공한다.
+
+    // 6.1.3 상속과 프로토타입 체인
+    function Person() {}
+    Person.prototype.dance = function() { return 'dancing...'};
+
+    function Ninja() {}
+    // 닌자도 명백히 사람이므로 Ninja가 Person 속성을 상속 받으면 좋을 것 같다.
+    // 여기서는 Peron 프로토타입의 메서드인 dance 프로퍼티를 Ninja 프로토타입에 복사함으로써 상속을 구현한다.
+    // 테스트는 실패한다..
+    Ninja.prototype = {dance: Person.prototype.dance};
+
+    var ninja = new Ninja();
+    assert(ninja instanceof Ninja, 'ninja는 Ninja 프로토타입 기능을 물려받았다.');
+    assert(ninja instanceof Person, '...그리고 Person 프로토타입의 기능을 물려받았다.'); // false
+    assert(ninja instanceof Object, '...그리고 Object 프로토타입의 기능을 물려받았다.');
+
+    // ninja에게 춤을 가르쳐도 Ninja를 Person으로 만들지는 못한다.
+    // ninja가 춤추는 Person을 흉내 내게는 할 수 있지만, Ninja를 Person으로는 만들지 못한다.
+    // 이는 상속이 아니라 단지 복사일 뿐이다.
+    // 잘못된 생각은 아니지만, 이 방식을 사용한다면 Person의 모든 프로포티를 Ninja 포로토타입에 개별적으로 복사
+    // 할 필요가 있다. 이는 상속이 아니다!
+
+    // 프로토타입 체인을 생성하는 제일 좋은 방법은 상위 객체의 인스턴스를 하위 객체의 프로토타입으로 사용하는 것이다.
+    // subClass.prototype = new SuperClass();
+    Ninja.prototype = new Person();
+
+    // 자바스크립트 1.6에서도 계속 사용할 수 있는 forEach() 메소드 구현하기 (브라우저가 지원하지 않을때..)
+    if (!Array.prototype.forEach_1) {
+        Array.prototype.forEach_1 = function(callback, context) {
+            for (var i = 0; i < this.length; i++) {
+                callback.call(context || null, this[i], i, this);
+            }
+        };
+    }
+
+    ['a', 'b', 'c'].forEach_1(function(value, index, array) {
+        assert(value, (array.length - 1) + ' 중 ' + index + '위치에 있음');
+    });
+
+    // 네이티브 객체에 프로퍼나 메서드를 구현하는 것은 전역 유효 범위에 new 변수를 생성하는 만큼 위험하다.
+    // 네이티브 객체 프로토타입의 인스턴스는 언제나 하나만 존재하고, 자칫 이름 충돌이 발생할 가능성이 크기 때문이다.
+    // 브라우저에 탑재된 실제 구현과 우리가 예측해 작성한 구현이 일치하지 않아 문제가 발생할 위험 또한 존재한다.
+</script>
+</body>
+</html>

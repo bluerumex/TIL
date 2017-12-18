@@ -29,16 +29,12 @@
     var ninja66_1 = Ninja();
 
     // 원본 Ninja 생성자 함수에 직접 접근하지 않고도 이를 사용할 수 있다.
-    // 또한 원본 생성자함수가 더 이상 유효범위에 있지 않더라도 사용이 가능하다.
+    // 또한 원본 생성자함수가 더 이상 유효범위에 있지 않더라도 사용이 가능하다. *
     var ninja66_2 = new ninja66_1.constructor();
 
     assert(ninja66_2 instanceof Ninja, '닌자가 맞다.');
     // 두 객체는 같지 않고 서로 별개의 인스턴스이다.
     assert(ninja66_1 !== ninja66_2, '하지만 같은 닌자는 아니다.');
-
-
-
-
 </script>
 </body>
 </html>
