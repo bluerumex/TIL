@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../scripts/assert.js"></script>
+    <link href="../styles/assert.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<script>
+    // 프로토타입, 인스턴스 생성, 상속과 관련하여 여러가지 실수하기 쉬운것들이 있다.
+    // 실수하기 쉬운 예를 몇가지 살펴보자.
+
+    // 6.2.1 객체 확장하기
+    // Object 프로토타입에 프로퍼티를 추가함으로써 일어나는 예상치 못한 작용
+    Object.prototype.keys = function() {
+        var keys = [];
+        for (var p in this) {
+            keys.push(p);
+        }
+        return keys;
+    };
+
+    var obj = {a: 1, b: 2, c: 3};
+
+    assert(obj.keys().length == 3, '이 객체에는 세 개의 프로퍼티가 있다.');
+</script>
+</body>
+</html>

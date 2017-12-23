@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../scripts/assert.js"></script>
+    <link href="../styles/assert.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div id="parent">
+    <div id="a">제거될 영역</div>
+    <div id="b">이곳 또한 제거될 영역</div>
+</div>
+<script>
+    // 현대 브라우저에서 흥미로운 부분은 모든 DOM 엘리먼트가 HTMLElements 생성자를 상속한다는 것이다.
+    // HTMLElement 프로토타입에 접근할 수 있고, 어떤 HTML 노드든 선택에 따라 확장할 수 있다.
+
+    // 6.1.4 HTMLElement 프로토타입을 사용하여 모든 HTML 엘리멘트에 새 메서드 추가하기.
+    HTMLElement.prototype.remove = function() {
+        if (this.parentNode) {
+            this.parentNode.removeChild(this);
+        }
+    };
+
+    // 예전 방식으로 DOM 제거
+    var a = document.getElementById('a');
+    a.parentNode.removeChild(a);
+
+    document.getElementById('b').remove();
+
+    assert(!document.getElementById('a'), 'a는 제거 되었다.');
+    assert(!document.getElementById('b'), 'b는 제거 되었다.');
+</script>
+</body>
+</html>
