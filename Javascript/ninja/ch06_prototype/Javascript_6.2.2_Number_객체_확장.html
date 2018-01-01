@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../scripts/assert.js"></script>
+    <link href="../styles/assert.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<script>
+    // 자바스크립트 엔진이 숫자와 숫자 객체의 프로퍼티를 파싱하는 방법 때문에 어떤 결과는 혼란을 초래한다.
+
+    // 6.2.2 Number 객체 확장하기
+    // Number 프로토타입에 메서드 추가하기
+    Number.prototype.add = function(num) {
+        return this + num;
+    };
+
+    var n = 5;
+    assert(n.add(3) == 8, '변수 값이 숫자라면 문제없이 작동한다.');
+    assert((5).add(3) == 8, '숫자가 괄호로 둘러쌓여 있을 때도 작동한다.');
+    assert(5.add(3) == 8, '단순한 형태의 리터럴은 어떨까?');
+    // 페이지가 로드 조차 되지않는다.
+</script>
+</body>
+</html>

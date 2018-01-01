@@ -24,6 +24,17 @@
     var obj = {a: 1, b: 2, c: 3};
 
     assert(obj.keys().length == 3, '이 객체에는 세 개의 프로퍼티가 있다.');
+
+    // Object 프로토타입 확장으로 인한 말썽을 잠재우기 위해 hasOwnProperty() 메서드 사용하기
+    Object.prototype.keys_2 = function() {
+        var keys = [];
+        for (var i in this) {
+            if (this.hasOwnProperty(i)) {
+                keys.push(i);
+            }
+        }
+        return keys;
+    };
 </script>
 </body>
 </html>
