@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../scripts/assert.js"></script>
+    <link href="../styles/assert.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<script>
+    // 하위 클래스를 만들기 가장 쉬운 객체는 Object이다.
+    // (Object는 모든 프로토타입 체인의 근원이기 때문이다)
+
+    // 6.2.3 네이티브 객체의 하위 클래스 만들기
+    // Array 객체의 하위 클래스 만들기
+    function MyArray() {};
+    MyArray.prototype = new Array();
+
+    var mine = new MyArray();
+    mine.push(1,2,3);
+    assert(mine.length == 3, '모든 항목이 하위 클래스 배열에 있다.');
+    assert(mine instanceof Array, 'Array의 기능을 구현하였다.');
+    // 새로운 생성자 MyArray를 사용하여 Array의 하위 클래스를 만들었고 모든게 잘 작동한다.
+    // 이 코드를 IE에서 불러오지 않는다면...
+    // IE에서는 length 프로퍼티와 관련한 것들을 원활하게 사용하지 못 한다.
+
+    // 이런 상황에서는, 네이티브 객체 전체를 상속하기보다는 네이트비 객체의 기능과는 별개인
+    // 기능을 구현하는 것이 더 나은 전략이다.
+
+    function MyArray_1() {};
+    MyArray_1.prototype.length = 0;
+
+    (function () {
+        var methods = ['push', 'pop', 'shift', 'unshift', 'slice', 'splice', 'join'];
+
+        for (var i = 0; i < methods.length; i++ ) {
+            (function(name) {
+                MyArray_1.prototype[name] = function() {
+                    return Array.prototype[name].apply(this, arguments);
+                }
+            })(methods[i]);
+        }
+    })();
+
+    var mine_1 = new MyArray_1();
+    mine_1.push(1,2,3);
+
+    assert(mine_1.length == 3, '모든 항목이 하위 클래스 배열에 있다.');
+    assert(!(mine_1 instanceof Array), '그러나 MyArray_1는 Array를 상속하지 않았다.');
+</script>
+</body>
+</html>
