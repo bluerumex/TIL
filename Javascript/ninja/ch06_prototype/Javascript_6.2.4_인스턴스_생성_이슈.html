@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../scripts/assert.js"></script>
+    <link href="../styles/assert.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<script>
+    // 6.2.4 인스턴스 생성 이슈
+    // 생성자 함수 호출에서 new 연산자를 빠뜨렸을 때의 결과
+    function User(first, last) {
+        this.name = first + ' ' + last;
+    }
+
+    var user = User('yoon', 'sw');
+    assert(user, 'User 인스턴스가 만들어졌다.');
+    // assert(user.name == 'yoon sw'), 'User의 이름을 올바르게 할당하였다.';
+
+    // undefined 오류
+    // new 연산자가 없으면 함수는 일반 형태로 호출되며 인스턴스는 생성되지 않는다.
+
+    // 의도치 않게 전역 네임스페이스에 어떤 변수를 넣어버린다.
+    function User_1(first, last) {
+        this.name = first + ' ' + last;
+    }
+
+    var name = 'looki';
+    var user_1 = User_1('yoon', 'sw');
+    assert(name == 'looki', "looki로 이름을 설정하였다.");
+
+    // 생성자로 함수를 호출했는지 판단하기
+    function Test() {
+        return this instanceof arguments.callee;
+    }
+
+    // arguments.callee를 통해 현재 실행하고 있는 함수에 대한 참조를 얻을 수 있다.
+    // 일반적인 함수의 콘텍스트는 전역 유효범위이다.(누군가가 조작을 안했다면..)
+    // 생성된 객체에 대해 instanceof 연산자를 사용하여 그 객체의 생성자를 테스트할 수 있다.
+    assert(!Test(), '인스턴스를 만들지 않았다, 함수의 반환값은 false다');
+    assert(new Test(), '인스턴스를 만들었다. 함수의 반환값은 true');
+
+    // 호출자의 행동에 따라 대응하기
+    function User_2(first, last) {
+        if (!(this instanceof arguments.callee)) {
+            return new User_2(first, last);
+        }
+        this.name = first + ' ' + last;
+    }
+    // 4장에서 callee 프로퍼티는 이후 버전의 자바스크립트에서 사라질 예정이라는 것과
+    // strict 모드에서는 사용이 금지 되었다.
+</script>
+</body>
+</html>
