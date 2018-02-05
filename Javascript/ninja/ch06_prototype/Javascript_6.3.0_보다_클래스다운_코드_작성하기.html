@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../scripts/assert.js"></script>
+    <link href="../styles/assert.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<script>
+    // 일반적으로 객체 지향 개발자들이 원하는 기능은 다음과 같다
+    // 1) 생성자 함수와 프로토타입 문법의 번거로움을 덜어줄 시스템
+    // 2) 쉽게 프로토타입을 상속하는 방법
+    // 3) 프로토타입이 덮어쓴 원본 메서드에 접근하는 방법
+    // 전통적인 객체 지향 상속을 흉내 내는 자바스크립트 라이브러리는 많지만 그 중 base와
+    // Prototype이 구현한 방식이 훌륭하다.
+
+    // 6.3.1 전통적인 객체 지향 스타일에 가까운 상속 문법을 제시한다.
+    var Person = Object.subClass({
+       init: function(isDancing) {
+           this.dancing = isDancing;
+       },
+       dance: function() {
+           return this.dancing;
+       }
+    });
+
+    var Ninja = Person.subClass({
+       init: function() {
+           this._super(false);
+       },
+       dance: function() {
+           // Ninja에 특화된 코드는 여기에 위치한다.
+           return this_.super();
+       },
+       swingSword: function() {
+           return true;
+       }
+    });
+
+    var person = new Person(true);
+    assert(person.dance(), 'person은 춤을 춘다.');
+
+    var ninja = new Ninja();
+    assert(ninja.swingSword(), '칼을 휘두른다.');
+    assert(!ninja.dance(), '닌자는 춤을추지 않는다.');
+
+    assert(person instanceof Person, 'person은 Person이다.');
+    assert(ninja instanceof Ninja && ninja instanceof Person, 'ninja는 Ninja이고 Person이다.');
+</script>
+</body>
+</html>
