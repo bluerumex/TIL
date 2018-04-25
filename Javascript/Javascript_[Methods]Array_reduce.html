@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Array_reduce</title>
+</head>
+<body>
+<script>
+    // votes 배열에 있는 값들을 순회하면서 최종적으로 각각의 값들이 몇번 나오는지 count
+    var votes = ['kim', 'hong', 'lee', 'hong', 'lee', 'lee', 'hong'];
+
+    var reducer = function(accumulator, value, index, array) {
+        if (accumulator.hasOwnProperty(value)) {
+            accumulator[value] = accumulator[value] + 1;
+        } else {
+            accumulator[value] = 1;
+        }
+        return accumulator;
+    }
+
+    var initialValue = {};
+    // reduce method의 첫 번째 인자로는 reducer 함수를, 두번재 인잘는 초기값 initialValue라는 빈 Object를 전달
+    var result = votes.reduce(reducer, initialValue);
+
+    console.log(initialValue);
+
+</script>
+</body>
+</html>
